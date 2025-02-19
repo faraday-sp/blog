@@ -1,100 +1,56 @@
+<script lang="ts" setup>
+useHead({
+  title: "Nuxt Content Blog Demo",
+});
+</script>
+
 <template>
-  <div class="m-8">
-    <TheHeader />
-
-    <h1 class="font-bold text-4xl">Blog Posts</h1>
-    <ul class="flex flex-wrap">
-      <li
-        v-for="article of articles"
-        :key="article.slug"
-        class="xs:w-full md:w-1/2 px-2 xs:mb-6 md:mb-12 article-card"
+  <div>
+    <!-- Blog List  -->
+    <ContentList
+      path="/posts"
+      fields="title,date,thumbnail"
+      :query="{
+        draft: false,
+        sort: [
+          {
+            date: -1,
+          },
+        ],
+      }"
+      v-slot="{ list }"
+    >
+      <!-- Blog Card  -->
+      <div
+        v-for="blog in list"
+        :key="blog._path"
+        class="blog-card bg-white rounded-2xl overflow-hidden mb-4"
       >
-        <NuxtLink
-          :to="{ name: 'blog-slug', params: { slug: article.slug } }"
-          class="flex transition-shadow duration-150 ease-in-out shadow-sm hover:shadow-md xxlmax:flex-col"
-        >
+        <div class="h-[300px] relative">
           <img
-            v-if="article.img"
-            class="h-48 xxlmin:w-1/2 xxlmax:w-full object-cover"
-            :src="article.img"
+            v-if="blog.thumbnail"
+            :src="blog.thumbnail"
+            :alt="blog.title"
+            class="absolute w-full h-full object-cover"
           />
+        </div>
 
-          <div
-            class="p-6 flex flex-col justify-between xxlmin:w-1/2 xxlmax:w-full"
-          >
-            <h2 class="font-bold">{{ article.title }}</h2>
-            <p>by {{ article.author.name }}</p>
-            <p class="font-bold text-gray-600 text-sm">
-              {{ article.description }}
-            </p>
+        <div class="blog-card--meta my-4 ml-4">
+          <h3 class="text-2xl font-bold">
+            <NuxtLink :to="blog.slug">{{ blog.title }}</NuxtLink>
+          </h3>
+          <div class="text-sm text-gray-500 mt-px block">{{ blog.date }}</div>
+          <div v-if="blog.tags" class="mt-2 text-xs">
+            <span v-for="tag in blog.tags" class="p-1 rounded bg-gray-100 mr-2">
+              {{ tag }}</span
+            >
           </div>
-        </NuxtLink>
-      </li>
-    </ul>
-    <h3 class="mb-4 font-bold text-2xl uppercase text-center">Topics</h3>
-    <ul class="flex flex-wrap mb-4 text-center">
-      <li
-        v-for="tag of tags"
-        :key="tag.slug"
-        class="xs:w-full md:w-1/3 lg:flex-1 px-2 text-center"
-      >
-        <NuxtLink :to="`/blog/tag/${tag.slug}`" class="">
-          <p
-            class="font-bold text-gray-600 uppercase tracking-wider font-medium text-ss"
-          >
-            {{ tag.name }}
-          </p>
-        </NuxtLink>
-      </li>
-    </ul>
-    <footer class="flex justify-center border-gray-500 border-t-2">
-      <p class="mt-4">
-        Created by
-        <a
-          href="https://twitter.com/debs_obrien"
-          class="font-bold hover:underline"
-          >Debbie O'Brien</a
-        >
-        at NuxtJS. See the
-        <a
-          href="https://nuxtjs.org/blog/creating-blog-with-nuxt-content"
-          class="font-bold hover:underline"
-          >tutorial</a
-        >
-        for how to build it.
-      </p>
-    </footer>
+        </div>
+      </div>
+      <!-- ./ Blog Card  -->
+    </ContentList>
+    <!-- ./ Blog List  -->
   </div>
 </template>
 
-<script>
-export default {
-  async asyncData({ $content, params }) {
-    const articles = await $content('articles')
-      .only(['title', 'description', 'img', 'slug', 'author'])
-      .sortBy('createdAt', 'desc')
-      .fetch()
-    const tags = await $content('tags')
-      .only(['name', 'description', 'img', 'slug'])
-      .sortBy('createdAt', 'asc')
-      .fetch()
-    return {
-      articles,
-      tags
-    }
-  }
-}
-</script>
-
-<style class="postcss">
-.article-card {
-  border-radius: 8px;
-}
-.article-card a {
-  background-color: #fff;
-  border-radius: 8px;
-}
-.article-card img div {
-  border-radius: 8px 0 0 8px;
-}
-</style>
+<style></style>
