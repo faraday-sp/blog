@@ -1,62 +1,49 @@
-<script lang="ts" setup>
-const { slug } = useRoute().params;
-</script>
-
 <template>
-  <article class="bg-white rounded-2xl">
+  <article class="text-white bg-black">
     <ContentDoc :path="`/posts/${slug}`" v-slot="{ doc }">
-      <!-- Header  -->
-      <header>
-        <div class="text-center p-5">
-          <h1 class="text-4xl font-bold lg:w-2/3 mx-auto">{{ doc.title }}</h1>
-          <p class="text-gray-500 text-sm mt-2">{{ doc.date }}</p>
-        </div>
+      <div class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <img
-          v-if="doc.thumbnail"
-          :src="doc.thumbnail"
-          :alt="doc.title"
-          class="w-full"
+            v-if="doc.thumbnail"
+            :src="doc.thumbnail"
+            :alt="doc.title"
+            class="absolute inset-0 w-full h-full object-cover"
         />
-      </header>
-      <!-- ./ Header  -->
-
-      <!-- Content -->
-      <div class="mt-4 content p-5">
-        <!-- Content  -->
-        <ContentRenderer :value="doc" />
-        <!-- ./ Content  -->
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative text-center px-4">
+          <h1 class="text-4xl font-bold mb-2 text-white">
+            {{ doc.title }}
+          </h1>
+          <p class="text-sm text-white/70">
+            {{ formatDate(doc.date) }}
+          </p>
+          <div v-if="doc.tags" class="mt-4 space-x-2">
+            <span
+                v-for="(tag, i) in doc.tags"
+                :key="i"
+                class="inline-block bg-neutral-700 text-xs text-white px-2 py-1 rounded-md"
+            >
+              {{ tag }}
+            </span>
+          </div>
+        </div>
       </div>
-      <!-- ./ Content  -->
+      <div class="mx-auto px-4 py-8 leading-relaxed prose prose-invert">
+        <ContentRenderer :value="doc" />
+      </div>
     </ContentDoc>
   </article>
 </template>
 
-<style>
-.content p:not(:last-child),
-.content li:not(:last-child),
-.content blockquote:not(:last-child),
-.content h1:not(:last-child),
-.content h2:not(:last-child),
-.content h3:not(:last-child),
-.content h4:not(:last-child),
-.content pre:not(:last-child),
-.content table:not(:last-child) {
-  @apply mb-4;
-}
+<script setup lang="ts">
+import { useRoute } from "vue-router";
 
-.content h1 {
-  @apply text-3xl font-bold;
+const { slug } = useRoute().params;
+
+function formatDate(dateStr: string) {
+  const dateObj = new Date(dateStr);
+  const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const dd = String(dateObj.getDate()).padStart(2, "0");
+  const yyyy = dateObj.getFullYear();
+  return `${mm}.${dd}.${yyyy}`;
 }
-.content h2 {
-  @apply text-2xl font-bold;
-}
-.content h3 {
-  @apply text-xl font-bold;
-}
-.content h4 {
-  @apply text-lg font-bold;
-}
-.content h5 {
-  @apply text-base font-bold;
-}
-</style>
+</script>
