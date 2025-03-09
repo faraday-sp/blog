@@ -139,7 +139,6 @@ const nextButtonProps = {
   background-color: #000;
   color: #fff;
   box-sizing: border-box;
-  padding-bottom: 2rem;
 }
 
 .backButton {
