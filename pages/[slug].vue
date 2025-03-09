@@ -183,7 +183,6 @@ const nextButtonProps = {
   cursor: pointer;
   transition: background-color 0.3s;
   background-color: #3f3f46;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
