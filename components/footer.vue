@@ -10,13 +10,13 @@
         </NuxtLink>
       </div>
       <nav :class="$style.footerNav">
-        <NuxtLink :to="privacyLink" :class="$style.footerLink">
+        <NuxtLink to="" :class="$style.footerLink">
           Privacy Policy
         </NuxtLink>
-        <NuxtLink :to="termsLink" :class="$style.footerLink">
+        <NuxtLink to="" :class="$style.footerLink">
           Terms of Service
         </NuxtLink>
-        <NuxtLink :to="supportLink" :class="$style.footerLink">
+        <NuxtLink to="" :class="$style.footerLink">
           Support
         </NuxtLink>
       </nav>
@@ -45,9 +45,6 @@
 </template>
 
 <script setup lang="ts">
-const privacyLink = '/privacy'
-const termsLink = '/terms'
-const supportLink = '/support'
 
 const facebookLink = '#'
 const twitterLink = '#'
