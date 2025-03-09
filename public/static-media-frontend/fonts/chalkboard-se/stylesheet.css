@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Chalkboard SE';
+  src:
+    local('Chalkboard SE Bold'),
+    local('Chalkboard-SE Bold'),
+    url('chalkboard-se-bold.woff2') format('woff2'),
+    url('chalkboard-se-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Chalkboard SE';
+  src:
+    local('Chalkboard SE Regular'),
+    local('Chalkboard-SE Regular'),
+    url('chalkboard-se-regular.woff2') format('woff2'),
+    url('chalkboard-se-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

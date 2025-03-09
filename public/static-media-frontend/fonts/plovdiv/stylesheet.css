@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Plovdiv';
+  src:
+    local('PlovdivDisplay Bold'),
+    local('PlovdivDisplay-Bold'),
+    url('plovdiv-display-bold.woff2') format('woff2'),
+    url('plovdiv-display-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plovdiv';
+  src:
+    local('PlovdivDisplay Regular'),
+    local('PlovdivDisplay-Regular'),
+    url('plovdiv-display-regular.woff2') format('woff2'),
+    url('plovdiv-display-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

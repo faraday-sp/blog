@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 700 700">
+<rect width="700" height="700" fill="#18191B" rx="180"/>
+<g filter="url(#logo-sign_svg__a)">
+<path fill="url(#logo-sign_svg__b)" fill-rule="evenodd" d="M349.875 495.856c80.623 0 145.981-65.358 145.981-145.981 0-80.623-65.358-145.981-145.981-145.981-80.623 0-145.981 65.358-145.981 145.981 0 80.623 65.358 145.981 145.981 145.981Zm0 74.894c121.986 0 220.875-98.889 220.875-220.875S471.861 129 349.875 129 129 227.889 129 349.875 227.889 570.75 349.875 570.75Z" clip-rule="evenodd"/>
+</g>
+<defs>
+<linearGradient id="logo-sign_svg__b" x1="349.875" x2="349.875" y1="129" y2="570.75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#16BE8A"/>
+<stop offset="1" stop-color="#16BE8A" stop-opacity=".8"/>
+</linearGradient>
+<filter id="logo-sign_svg__a" width="441.75" height="476.421" x="129" y="129" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="34.671"/>
+<feGaussianBlur stdDeviation="17.336"/>
+<feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+<feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend in2="shape" result="effect1_innerShadow_6533_49"/>
+</filter>
+</defs>
+</svg>
