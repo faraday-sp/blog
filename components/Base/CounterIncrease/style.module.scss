@@ -1,0 +1,15 @@
+.base {
+  display: flex;
+  gap: var(--brick-currency-gap, 6px);
+  font-feature-settings:
+    'tnum' on,
+    'lnum' on;
+}
+
+.hidden {
+  visibility: hidden;
+  position: absolute;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+}

@@ -4,6 +4,18 @@ export default defineNuxtConfig({
   modules: ["@nuxt/content", "@nuxt/ui"],
   css: ['./assets/scss/main.scss'],
   compatibilityDate: "2025-02-24",
+  app: {
+    head: {
+      link: [
+        {
+          crossorigin: '',
+          href: '/static-media-frontend/fonts/montserrat/stylesheet.css',
+          rel: 'stylesheet',
+        },
+      ],
+      title: '',
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {

@@ -1,36 +1,45 @@
 <template>
-  <header :class="$style.header">
-    <div :class="$style.logoContainer">
-      <NuxtLink to="/" :class="$style.logoLink">
-        <img
-            src="/static-media-frontend/pliant/logo.svg"
-            alt="Logo"
-        />
-      </NuxtLink>
-    </div>
-
-    <div :class="$style.searchContainer">
+  <header
+      class="sticky top-0 flex w-full py-3 px-3 mb:px-3 mb:py-2 border-b border-gray-700/50 bg-gray-900/80 backdrop-blur-md backdrop-saturate-150 z-50 transition-transform ease-in-out"
+      style="transition-duration: 400ms"
+  >
+    <div
+        :class="$style.base"
+        class="absolute -translate-x-1/2 mb:hidden flex"
+        :style="{
+        left: 'calc(50% + 36px)',
+      }"
+    >
       <UInput
           :model-value="search"
-          icon="i-heroicons-magnifying-glass-20-solid"
+          placeholder="Search Comics, Tags, Autors..."
+          class="w-full"
+          :ui="{
+            rounded: 'rounded-full',
+          }"
           size="md"
-          color="white"
-          :trailing="false"
-          placeholder="Search Comics, Tags, Authors..."
+          leadingIcon="i-solar-rounded-magnifer-outline"
           @input="onInput"
       />
-      <button
-          v-if="search"
-          @click="clearSearch"
-          :class="$style.clearSearchButton"
-      >
-        ✕
-      </button>
     </div>
-
-    <UButton color="gray" variant="solid" :class="$style.aboutButton">
-      About
-    </UButton>
+    <nav class="flex place-items-center justify-between w-full gap-4 mb:gap-0">
+      <div class="flex items-center gap-4">
+        <NuxtLink
+            to="/"
+            :cl="['transition-transform duration-300 active:scale-95 flex rounded-md w-fit']"
+        >
+          <BaseImg
+              src="logo.svg"
+              class="min-w-36 w-36 mb:min-w-32 mb:w-32"
+          />
+        </NuxtLink>
+      </div>
+      <div class="flex gap-2 mb:gap-1.5">
+        <UButton color="gray" variant="solid" :class="$style.aboutButton">
+          About
+        </UButton>
+      </div>
+    </nav>
   </header>
 </template>
 
@@ -56,8 +65,13 @@ function clearSearch() {
 </script>
 
 <style lang="scss" module>
+.base {
+  width: 100%;
+  max-width: 464px;
+}
+
 .header {
-  background-color: #000;
+  background-color: #171717;
   border-bottom: 1px solid #2b2b2b;
   padding: 24px;
   display: flex;
@@ -117,7 +131,6 @@ function clearSearch() {
 }
 
 .aboutButton {
-  border-radius: 10px;
   --tw-ring-color: #2B2B2B !important;
   width: 98px;
   height: 36px;

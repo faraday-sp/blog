@@ -1,11 +1,14 @@
 <template>
   <footer :class="$style.footer">
     <div :class="$style.footerContainer">
-      <div :class="$style.logoContainer">
-        <NuxtLink to="/" :class="$style.logoLink">
-          <img
-              src="/static-media-frontend/pliant/logo.svg"
-              alt="Logo"
+      <div class="flex items-center gap-4">
+        <NuxtLink
+            to="/"
+            :cl="['transition-transform duration-300 active:scale-95 flex rounded-md w-fit']"
+        >
+          <BaseImg
+              src="logo.svg"
+              class="min-w-36 w-36 mb:min-w-32 mb:w-32"
           />
         </NuxtLink>
       </div>
@@ -56,7 +59,7 @@ const currentYear = new Date().getFullYear()
 
 <style lang="scss" module>
 .footer {
-  background-color: #000000;
+  background-color: #171717;
   color: #ffffff;
   border-top: 1px solid #2b2b2b;
 }
@@ -89,6 +92,7 @@ const currentYear = new Date().getFullYear()
 .footerNav {
   display: flex;
   gap: 2rem;
+  cursor: pointer;
   @include mobile {
     flex-direction: column;
     gap: 12px;

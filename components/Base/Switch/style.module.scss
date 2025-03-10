@@ -1,0 +1,46 @@
+.base {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--text4);
+}
+
+.switch {
+  --roller-size: 16px;
+  display: flex;
+  border-radius: 50px;
+  padding: 4px 4px;
+  align-items: center;
+  cursor: pointer;
+  width: calc((var(--roller-size) * 2) + 8px);
+  background-color: var(--bg10);
+  transition-property: background-color, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+  &:hover .roller {
+    transform: translateX(5%);
+  }
+}
+.roller {
+  width: var(--roller-size);
+  height: var(--roller-size);
+  border-radius: 50%;
+  background-color: var(--text3);
+  transition-property: background-color, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.38, 0, 0.43, 1.28);
+}
+
+.switch.active .roller {
+  background-color: var(--primary100);
+  transform: translateX(100%);
+}
+.switch.active {
+  background-color: rgba(var(--primary100RGB), 0.2);
+}
+
+.switch.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

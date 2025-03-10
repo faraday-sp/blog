@@ -1,0 +1,1 @@
+declare type ImgName = 'bank.svg' | 'collection-card-default.svg' | 'logo-collections.svg' | 'logo-comics.svg' | 'logo-download.svg' | 'logo-sign-collections.svg' | 'logo-sign-comics.svg' | 'logo-sign-dev.svg' | 'logo-sign-download.svg' | 'logo-sign-prime.svg' | 'logo.svg' | 'premium.webp' | 'promocode.webp' | 'spinner.svg'

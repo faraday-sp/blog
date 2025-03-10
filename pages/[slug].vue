@@ -136,7 +136,7 @@ const nextButtonProps = {
 <style lang="scss" module>
 .postArticle {
   position: relative;
-  background-color: #000;
+  background-color: #171717;
   color: #fff;
   box-sizing: border-box;
 }
@@ -351,7 +351,7 @@ const nextButtonProps = {
   width: auto;
   margin: 24px -24px;
   @include mobile {
-    margin: 20px -0.75rem;
+    margin: 20px -16px;
   }
 }
 

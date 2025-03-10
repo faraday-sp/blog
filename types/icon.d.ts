@@ -1,0 +1,1 @@
+declare type IconName = 'arrow-left' | 'logo-line' | 'zoom-in'
