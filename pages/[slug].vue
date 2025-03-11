@@ -5,7 +5,7 @@
         :class="$style.backButton"
         aria-label="Go back"
     >
-      ←
+      <UIcon :class="$style.arrowBack" name="i-solar-arrow-left-linear" />
     </NuxtLink>
 
     <div :class="$style.floatingButtons">
@@ -159,6 +159,15 @@ const nextButtonProps = {
   }
 }
 
+.arrowBack {
+  width: 25px;
+  height: 25px;
+  @include mobile {
+    width: 15px;
+    height: 15px;
+  }
+}
+
 .floatingButtons {
   cursor: pointer;
   position: fixed;
@@ -170,8 +179,7 @@ const nextButtonProps = {
   gap: 0.75rem;
   z-index: 20;
   @include mobile {
-    right: 10px;
-    gap: 10px;
+    display: none;
   }
 }
 
@@ -233,11 +241,14 @@ const nextButtonProps = {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 60px;
   margin-bottom: 2rem;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: center;
+  }
+  @include mobile {
+    gap: 12px;
   }
 }
 .bottomLogoLink {
@@ -256,7 +267,7 @@ const nextButtonProps = {
     align-items: center;
     justify-content: center;
     img {
-      height: 54px;
+      height: 30px;
     }
     padding: 12px;
   }
@@ -282,7 +293,7 @@ const nextButtonProps = {
   text-align: left;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
   }
 }
 

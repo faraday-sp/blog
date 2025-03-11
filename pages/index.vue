@@ -11,7 +11,7 @@
             ref="sliderRef"
             :cl="[$style.slider]"
             :slideList="list"
-            :gap="isMobile ? 6 : 40"
+            :gap="isMobile ? 6 : 25"
             :disabledPointerEvents="false"
             :autoplay="5000"
             loop
@@ -100,7 +100,7 @@
                 try blog
                 <UIcon
                     :class="$style.arrowIcon"
-                    name="i-heroicons-arrow-up-right"
+                    name="i-solar-arrow-right-up-linear"
                 />
               </div>
             </div>
@@ -232,7 +232,7 @@ function prevSlide(): void {
 }
 
 .arrow {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(2px);
   color: #fff;
   border-radius: 50px;
@@ -251,8 +251,8 @@ function prevSlide(): void {
   z-index: 2;
   --base-icon-size: 12px;
   &:hover {
-    background: var(--text4);
-    color: var(--text1);
+    background: rgba(218, 218, 218, 0.25);
+    color: #fff;
   }
   @include mobile {
     display: none;
@@ -260,10 +260,18 @@ function prevSlide(): void {
 }
 
 .arrowRight {
+  span {
+    width: 30px;
+    height: 30px;
+  }
   right: 150px;
   transform: translateX(50%) translateY(-50%);
 }
 .arrowLeft {
+  span {
+    width: 30px;
+    height: 30px;
+  }
   left: 150px;
   transform: translateX(-50%) translateY(-50%);
 }
@@ -294,7 +302,7 @@ function prevSlide(): void {
   font-weight: 400;
   font-size: 18px;
   line-height: 160%;
-  max-width: 48rem;
+  max-width: 54rem;
   margin: 16px auto 0;
   color: #c5c5c5;
   @include mobile {
@@ -311,11 +319,15 @@ function prevSlide(): void {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  margin: 24px 0 0;
+  gap: 60px;
+  margin: 60px 0 60px;
 
   @media (min-width: 768px) {
     flex-direction: row;
+  }
+  @include mobile {
+    gap: 12px;
+    margin: 40px 0 40px;
   }
 }
 
@@ -336,7 +348,7 @@ function prevSlide(): void {
     align-items: center;
     justify-content: center;
     img {
-      height: 54px;
+      height: 30px;
     }
     padding: 12px;
   }
@@ -370,7 +382,7 @@ function prevSlide(): void {
   text-align: left;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
   }
 }
 
