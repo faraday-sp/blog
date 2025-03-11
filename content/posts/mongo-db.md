@@ -13,9 +13,11 @@ slug: mongo-db
 
 XYI SOSI
 
-## Prerequisites
+## [`Prerequisites`]{style="color: blue"}
 
-Before we get started, make sure you have a working nuxt 3 project. If you don't have one already, you can create a new project using the following command:
+![hello-world.jpg](/img/hello-world.jpg)
+
+[Before we get started, make sure you have a working nuxt 3 project. If you don't have one already, you can create a new project using the following command:]{class="" style="color: red"}
 
 ```bash
 npx nuxi init <project-name>
