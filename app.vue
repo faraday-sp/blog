@@ -13,9 +13,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { countryList } from '@/assets/country'
+
+const route = useRoute()
+const router = useRouter()
 
 const search = ref('')
+
+interface CountryResponse {
+  country: string
+}
 
 const colorMode = useColorMode()
 colorMode.preference = 'dark'
@@ -57,7 +64,7 @@ onMounted(() => {
   justify-self: center;
   @include mobile {
     justify-content: flex-start;
-    --bottomNavHeight: 51px;
+    --bottomNavHeight: 1px;
     min-height: calc(100dvh - var(--headerHeightCollections) - var(--bottomNavHeight));
   }
 }

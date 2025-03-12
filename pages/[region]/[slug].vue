@@ -1,55 +1,41 @@
 <template>
   <article :class="$style.postArticle">
-    <NuxtLink
-        to="/"
-        :class="$style.backButton"
-        aria-label="Go back"
-    >
-      <UIcon :class="$style.arrowBack" name="i-solar-arrow-left-linear" />
+    <NuxtLink :to="`/${region}`" :class="$style.backButton" aria-label="Go back">
+      <UIcon :class="$style.arrowBack" name="i-solar-arrow-left-linear"/>
     </NuxtLink>
 
     <div :class="$style.floatingButtons">
-      <a href="" :class="$style.buttonPurple">
-        <img src="/static-media-frontend/pliant/logo-sign-comics.svg" alt="comics" />
+      <a href="#" :class="$style.buttonPurple">
+        <img src="/static-media-frontend/pliant/logo-sign-comics.svg" alt="comics"/>
       </a>
-      <a href="" :class="$style.buttonPurple">
-        <img src="/static-media-frontend/pliant/logo-sign-collections.svg" alt="collections" />
+      <a href="#" :class="$style.buttonPurple">
+        <img src="/static-media-frontend/pliant/logo-sign-collections.svg" alt="collections"/>
       </a>
     </div>
 
-    <ContentDoc :path="`/posts/${slug}`" v-slot="{ doc }">
-      <h1 :class="$style.postTitle">
-        {{ doc.title }}
-      </h1>
-      <div v-if="doc.thumbnail" :class="$style.postImageWrapper">
-        <img
-            :src="doc.thumbnail"
-            :alt="doc.title"
-            :class="$style.postImage"
-        />
-      </div>
-      <div :class="$style.postContent">
-        <ContentRenderer :value="doc" />
-      </div>
-    </ContentDoc>
+    <h1 :class="$style.postTitle">{{ post?.title }}</h1>
+
+    <div v-if="post?.thumbnail" :class="$style.postImageWrapper">
+      <img :src="post.thumbnail" :alt="post.title" :class="$style.postImage"/>
+    </div>
+
+    <div v-if="post" :class="$style.postContent">
+      <ContentRenderer :value="post"/>
+    </div>
 
     <div :class="$style.bottomLogos">
-      <a href="" :class="$style.bottomLogoLink">
-        <img
-            src="/static-media-frontend/pliant/logo-comics.svg"
-            alt="Only Nice Comics"
-        />
+      <a href="#" :class="$style.bottomLogoLink">
+        <img src="/static-media-frontend/pliant/logo-comics.svg" alt="Only Nice Comics"/>
       </a>
-      <a href="" :class="$style.bottomLogoLink">
-        <img
-            src="/static-media-frontend/pliant/logo-collections.svg"
-            alt="Only Nice Collections"
-        />
+      <a href="#" :class="$style.bottomLogoLink">
+        <img src="/static-media-frontend/pliant/logo-collections.svg" alt="Only Nice Collections"/>
       </a>
     </div>
+
     <div :class="$style.divider"/>
+
     <ContentList
-        path="/posts"
+        :path="`/posts/${region}`"
         fields="title,date,thumbnail,slug,tags,description"
         :query="{ draft: false, sort: [{ date: -1 }] }"
         v-slot="{ list }"
@@ -68,7 +54,7 @@
           <NuxtLink
               v-for="post in getFilteredItems(list)"
               :key="post._path"
-              :to="post.slug"
+              :to="`/${region}/${post.slug}`"
               :class="$style.postCard"
           >
             <div :class="$style.postCardImageContainer">
@@ -90,7 +76,7 @@
                 try blog
                 <UIcon
                     :class="$style.arrowIcon"
-                    name="i-heroicons-arrow-up-right"
+                    name="i-solar-arrow-right-up-linear"
                 />
               </div>
             </div>
@@ -102,11 +88,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute } from "vue-router"
-
-const { slug } = useRoute().params
+const route = useRoute()
+const { region, slug } = route.params
 const currentIndex = ref(0)
+
+const { data: post } = await useAsyncData(() =>
+    queryContent('posts')
+        .where({ _dir: region, slug })
+        .findOne()
+)
+
+if (!post.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Статья не найдена' })
+}
 
 function onSlideChange(newVal: number) {
   currentIndex.value = newVal
@@ -118,18 +112,6 @@ function getFilteredItems(items: any[]) {
       .filter((item, idx, arr) =>
           arr.findIndex(el => el.slug === item.slug) === idx
       )
-}
-
-const prevButtonProps = {
-  color: 'gray',
-  icon: 'i-heroicons-arrow-left-20-solid',
-  class: '-start-12'
-}
-
-const nextButtonProps = {
-  color: 'gray',
-  icon: 'i-heroicons-arrow-right-20-solid',
-  class: '-end-12'
 }
 </script>
 
