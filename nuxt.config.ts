@@ -1,6 +1,38 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 
+async function getPrerenderRoutes() {
+  const contentDir = path.resolve('content/posts')
+  let routes: string[] = []
+
+  try {
+    const regions = await fs.readdir(contentDir)
+    for (const region of regions) {
+      const regionPath = path.join(contentDir, region)
+      const stat = await fs.stat(regionPath)
+
+      if (stat.isDirectory()) {
+        routes.push(`/${region}`)
+
+        const files = await fs.readdir(regionPath)
+        files.forEach(file => {
+          if (file.endsWith('.md')) {
+            const slug = file.replace('.md', '')
+            routes.push(`/${region}/${slug}`)
+          }
+        })
+      }
+    }
+  } catch (error) {
+    console.error('Ошибка при создании маршрутов:', error)
+  }
+
+  console.log('📌 Предрендеринг маршрутов:', routes)
+  return routes
+}
+
+const prerenderRoutesPromise = await getPrerenderRoutes()
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ["@nuxt/content", "@nuxt/ui"],
@@ -21,33 +53,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: await (async () => {
-        const contentDir = path.resolve('content/posts')
-        let routes: string[] = []
-
-        try {
-          const regions = await fs.readdir(contentDir)
-          for (const region of regions) {
-            const regionPath = path.join(contentDir, region)
-            const stat = await fs.stat(regionPath)
-
-            if (stat.isDirectory()) {
-              routes.push(`/${region}`)
-
-              const files = await fs.readdir(regionPath)
-              files.forEach(file => {
-                if (file.endsWith('.md')) {
-                  const slug = file.replace('.md', '')
-                  routes.push(`/${region}/${slug}`)
-                }
-              })
-            }
-          }
-        } catch (error) {
-          console.log('error', error)
-        }
-        return routes
-      })()
+      routes: prerenderRoutesPromise
     }
   },
   vite: {
