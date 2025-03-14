@@ -2,24 +2,32 @@ import type { ToRefs } from 'vue'
 
 interface ScreenList {
   isDesktop: boolean
-  isLaptop: boolean
   isMobile: boolean
   isTablet: boolean
 }
 interface ScreenQuery {
   desktop: string
-  laptop: string
   mobile: string
   tablet: string
 }
 const screens = reactive<ScreenList>({
   isDesktop: false,
-  isLaptop: false,
   isMobile: false,
   isTablet: false,
 })
-export function useScreen(query?: ScreenQuery): ToRefs<ScreenList> {
+const isVirtualKeyboard = ref(false)
+
+export function useScreen(query?: ScreenQuery): ToRefs<ScreenList & { isVirtualKeyboard: boolean }> {
   if (query && import.meta.client) {
+    function openVirtualKeyboard(): void {
+      if (!screens.isDesktop) {
+        isVirtualKeyboard.value = true
+      }
+    }
+    function closeVirtualKeyboard(): void {
+      isVirtualKeyboard.value = false
+    }
+
     onMounted(() => {
       const createListener = (screen: keyof ScreenList) => {
         return (event: MediaQueryList | MediaQueryListEvent) => {
@@ -31,23 +39,35 @@ export function useScreen(query?: ScreenQuery): ToRefs<ScreenList> {
         }
       }
       const onChangeDesktop = createListener('isDesktop')
-      const onChangeLaptop = createListener('isLaptop')
       const onChangeTablet = createListener('isTablet')
       const onChangeMobile = createListener('isMobile')
       const mqlDesktop = window.matchMedia(query.desktop)
-      const mqlLaptop = window.matchMedia(query.laptop)
       const mqlTablet = window.matchMedia(query.tablet)
       const mqlMobile = window.matchMedia(query.mobile)
       mqlDesktop.addEventListener('change', onChangeDesktop)
       onChangeDesktop(mqlDesktop)
-      mqlLaptop.addEventListener('change', onChangeLaptop)
-      onChangeLaptop(mqlLaptop)
       mqlTablet.addEventListener('change', onChangeTablet)
       onChangeTablet(mqlTablet)
       mqlMobile.addEventListener('change', onChangeMobile)
       onChangeMobile(mqlMobile)
+
+      document.addEventListener('focusin', (event) => {
+        const target = event.target
+        if (target instanceof HTMLElement && (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA')) {
+          openVirtualKeyboard()
+        }
+      })
+      document.addEventListener('focusout', closeVirtualKeyboard)
+    })
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('focusin', openVirtualKeyboard)
+      document.removeEventListener('focusout', closeVirtualKeyboard)
     })
   }
 
-  return toRefs(screens)
+  return {
+    isVirtualKeyboard,
+    ...toRefs(screens),
+  }
 }

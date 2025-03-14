@@ -13,21 +13,19 @@
 </template>
 
 <script setup lang="ts">
-import { countryList } from '@/assets/country'
-
-const route = useRoute()
-const router = useRouter()
-
 const search = ref('')
-
-interface CountryResponse {
-  country: string
-}
 
 const colorMode = useColorMode()
 colorMode.preference = 'dark'
 
 const initPage = ref(false)
+
+useScreen({
+  desktop: '(min-width: 1152px)',
+  mobile: '(max-width: 768px)',
+  tablet: '(max-width: 1152px) and (min-width: 768px)',
+})
+
 onMounted(() => {
   colorMode.preference = 'dark'
   initPage.value = true

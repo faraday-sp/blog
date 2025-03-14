@@ -21,7 +21,7 @@
   <div v-else :class="$style.base">
     <div :class="$style.sliderContainer">
       <ContentList
-          :path="`/posts/${region}`"
+          :path="`posts/${region}`"
           fields="title,thumbnail"
           :query="{ draft: false, sort: [{ date: -1 }] }"
           v-slot="{ list }"
@@ -30,7 +30,7 @@
             ref="sliderRef"
             :cl="[$style.slider]"
             :slideList="list"
-            :gap="isMobile ? 6 : 25"
+            :gap="isMobile ? 15 : 25"
             :disabledPointerEvents="false"
             :autoplay="5000"
             loop
@@ -87,7 +87,7 @@
     <div :class="$style.divider"/>
 
     <ContentList
-        :path="`/posts/${region}`"
+        :path="`posts/${region}`"
         fields="title,date,thumbnail,slug,tags,description"
         :query="{ draft: false, sort: [{ date: -1 }] }"
         v-slot="{ list }"
@@ -254,12 +254,16 @@ onMounted(() => {
   cursor: pointer;
   @include mobile {
     height: 153px;
+    border-radius: 12px;
   }
 }
 
 .slider {
   --base-slider-overflow: visible;
   max-width: 1500px;
+  @include mobile {
+    max-width: 300px;
+  }
 }
 
 .banner {
@@ -272,6 +276,7 @@ onMounted(() => {
 
   @include mobile {
     gap: 8px;
+    border-radius: 12px;
     min-width: 280px;
   }
 }
@@ -522,11 +527,20 @@ onMounted(() => {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 881px;
+  height: 488px;
+  background-image: url('/static-media-frontend/pliant/404.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   @include mobile {
-    width: 100%;
+    width: 375px;
+    background-position: 50% 30%;
+    background-size: 95%;
   }
 }
 .errorBaseTitle {
@@ -559,16 +573,17 @@ onMounted(() => {
     font-size: 14px;
     line-height: 160%;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 75px;
     max-width: 316px;
   }
 }
 .errorBaseButton {
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  width: 358px;
   @include mobile {
     width: 330px;
-    display: flex;
-    justify-content: center;
   }
 }
 </style>
