@@ -1,4 +1,3 @@
-
 export const countryList: Record<string, string> = {
         "AF": "usa",
         "AX": "usa",

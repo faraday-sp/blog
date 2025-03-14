@@ -1,5 +1,24 @@
 <template>
-  <div :class="$style.base">
+  <div v-if="pending" :class="$style.loading">
+    <img src="/static-media-frontend/icon/tube-spinner.svg" alt="loading..." />
+  </div>
+  <div v-else-if="isNotFound" :class="$style.errorBase">
+      <div :class="$style.errorBaseTitle">
+        Page not found
+      </div>
+      <div :class="$style.errorBaseDesription">
+        The page you are looking for doesn’t exist or has been moved
+      </div>
+      <UButton
+          size="lg"
+          color="green"
+          :class="$style.errorBaseButton"
+          @click="router.replace('/')"
+      >
+        Back to home
+      </UButton>
+  </div>
+  <div v-else :class="$style.base">
     <div :class="$style.sliderContainer">
       <ContentList
           :path="`/posts/${region}`"
@@ -125,6 +144,8 @@
 </template>
 
 <script setup lang="ts">
+import { countryList } from '@/assets/country'
+
 const props = defineProps({
   search: { type: String, default: "" },
 });
@@ -134,10 +155,12 @@ const sliderRef = ref<ComponentInstance<BaseSlider> | null>(null)
 const route = useRoute()
 const router = useRouter()
 const { region } = route.params
-
-const POSTS_PER_PAGE = 12;
 const page = ref(1);
 const listPost = ref([])
+const isNotFound = ref(false);
+const pending = ref(true);
+const regions = ref('');
+const POSTS_PER_PAGE = 12;
 
 function filteredBlogs(list: any[]) {
   if (!props.search.trim()) return list;
@@ -162,10 +185,34 @@ function nextSlide(): void {
   sliderRef.value?.nextSlide()
   sliderRef.value?.restartAutoplay()
 }
+
 function prevSlide(): void {
   sliderRef.value?.prevSlide()
   sliderRef.value?.restartAutoplay()
 }
+
+function getRegionByCountry(countryCode: string): string {
+  const region = Object.values(countryList).find(region => region === countryCode);
+  return region || '';
+}
+
+onMounted(() => {
+  const countryCode = route.params.region;
+
+  if (countryCode) {
+    const regionFound = getRegionByCountry(countryCode.toString());
+    if (regionFound) {
+      regions.value = regionFound;
+      isNotFound.value = false;
+    } else {
+      isNotFound.value = true;
+    }
+  } else {
+    isNotFound.value = true;
+  }
+
+  pending.value = false;
+});
 </script>
 
 <style lang="scss" module>
@@ -459,4 +506,69 @@ function prevSlide(): void {
   height: 12px;
 }
 
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.errorBase {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include mobile {
+    width: 100%;
+  }
+}
+.errorBaseTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 160%;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  @include mobile {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 160%;
+    margin-bottom: 2px;
+  }
+}
+.errorBaseDesription {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 160%;
+  text-align: center;
+  color: #CFCFCF;
+  margin-bottom: 24px;
+  max-width: 358px;
+  @include mobile {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    text-align: center;
+    margin-bottom: 50px;
+    max-width: 316px;
+  }
+}
+.errorBaseButton {
+  text-transform: uppercase;
+  @include mobile {
+    width: 330px;
+    display: flex;
+    justify-content: center;
+  }
+}
 </style>
