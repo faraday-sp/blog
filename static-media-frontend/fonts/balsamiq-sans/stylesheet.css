@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'BalsamiqSans';
+  src:
+    local('BalsamiqSans Bold'),
+    local('BalsamiqSans-Bold'),
+    url('balsamiq-sans-bold.woff2') format('woff2'),
+    url('balsamiq-sans-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'BalsamiqSans';
+  src:
+    local('BalsamiqSans BoldItalic'),
+    local('BalsamiqSans-BoldItalic'),
+    url('balsamiq-sans-bold-italic.woff2') format('woff2'),
+    url('balsamiq-sans-bold-italic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'BalsamiqSans';
+  src:
+    local('BalsamiqSans Regular'),
+    local('BalsamiqSans-Regular'),
+    url('balsamiq-sans-regular.woff2') format('woff2'),
+    url('balsamiq-sans-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BalsamiqSans';
+  src:
+    local('BalsamiqSans Italic'),
+    local('BalsamiqSans-Italic'),
+    url('balsamiq-sans-italic.woff2') format('woff2'),
+    url('balsamiq-sans-italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}

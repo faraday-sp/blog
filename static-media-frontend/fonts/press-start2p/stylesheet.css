@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'PressStart2P';
+  src:
+    local('PressStart2P Regular'),
+    local('PressStart2P-Regular'),
+    url('press-start2p-regular.woff2') format('woff2'),
+    url('press-start2p-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

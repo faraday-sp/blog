@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Comfortaa';
+  src:
+    local('Comfortaa Bold'),
+    local('Comfortaa-Bold'),
+    url('comfortaa-bold.woff2') format('woff2'),
+    url('comfortaa-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  src:
+    local('Comfortaa Regular'),
+    local('Comfortaa-Regular'),
+    url('comfortaa-regular.woff2') format('woff2'),
+    url('comfortaa-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
