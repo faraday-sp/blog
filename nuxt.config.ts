@@ -31,7 +31,7 @@ async function getPrerenderRoutes() {
   return routes
 }
 
-const prerenderRoutesPromise = await getPrerenderRoutes()
+// const prerenderRoutesPromise = await getPrerenderRoutes()
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
@@ -50,12 +50,12 @@ export default defineNuxtConfig({
       title: '',
     },
   },
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: prerenderRoutesPromise
-    }
-  },
+  // nitro: {
+  //   prerender: {
+  //     crawlLinks: true,
+  //     routes: prerenderRoutesPromise
+  //   }
+  // },
   vite: {
     css: {
       preprocessorOptions: {
@@ -64,6 +64,7 @@ export default defineNuxtConfig({
             @use 'sass:math';
             @use './assets/scss/compile/_mixins.scss' as *;
           `,
+          api: 'modern-compiler',
         },
       },
     },

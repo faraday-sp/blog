@@ -3,61 +3,60 @@
     <img src="/static-media-frontend/icon/tube-spinner.svg" alt="loading..." />
   </div>
   <div v-else-if="isNotFound" :class="$style.errorBase">
-      <div :class="$style.errorBaseTitle">
-        Page not found
-      </div>
-      <div :class="$style.errorBaseDesription">
-        The page you are looking for doesn’t exist or has been moved
-      </div>
-      <UButton
-          size="lg"
-          color="green"
-          :class="$style.errorBaseButton"
-          @click="router.replace('/')"
-      >
-        Back to home
-      </UButton>
+    <div :class="$style.errorBaseTitle">Page not found</div>
+    <div :class="$style.errorBaseDesription">
+      The page you are looking for doesn’t exist or has been moved
+    </div>
+    <UButton
+      size="lg"
+      color="green"
+      :class="$style.errorBaseButton"
+      @click="router.replace('/')"
+    >
+      Back to home
+    </UButton>
   </div>
   <div v-else :class="$style.base">
-    <div :class="$style.sliderContainer">
+    {{ page2 }}
+    <!-- <div :class="$style.sliderContainer">
       <ContentList
-          :path="`posts/${region}`"
-          fields="title,thumbnail"
-          :query="{ draft: false, sort: [{ date: -1 }] }"
-          v-slot="{ list }"
+        :path="`posts/${region}`"
+        fields="title,thumbnail"
+        :query="{ draft: false, sort: [{ date: -1 }] }"
+        v-slot="{ list }"
       >
         <BaseSlider
-            ref="sliderRef"
-            :cl="[$style.slider]"
-            :slideList="list"
-            :gap="isMobile ? 15 : 25"
-            :disabledPointerEvents="false"
-            :autoplay="5000"
-            loop
-            :mod="['mainPageDots']"
-            dots
+          ref="sliderRef"
+          :cl="[$style.slider]"
+          :slideList="list"
+          :gap="isMobile ? 15 : 25"
+          :disabledPointerEvents="false"
+          :autoplay="5000"
+          loop
+          :mod="['mainPageDots']"
+          dots
         >
           <template #slide="{ slide: banner }">
             <img
-                :src="banner.thumbnail"
-                :alt="banner.title"
-                draggable="false"
-                :class="$style.carouselImage"
-                @click="router.push(`/${region}/${banner.slug}`)"
+              :src="banner.thumbnail"
+              :alt="banner.title"
+              draggable="false"
+              :class="$style.carouselImage"
+              @click="router.push(`/${region}/${banner.slug}`)"
             />
           </template>
         </BaseSlider>
 
         <template v-if="list && list.length >= 1">
           <div
-              :class="[$style.arrow, $style.arrowLeft]"
-              @click.prevent="prevSlide"
+            :class="[$style.arrow, $style.arrowLeft]"
+            @click.prevent="prevSlide"
           >
             <UIcon name="i-heroicons-chevron-left" />
           </div>
           <div
-              :class="[$style.arrow, $style.arrowRight]"
-              @click.prevent="nextSlide"
+            :class="[$style.arrow, $style.arrowRight]"
+            @click.prevent="nextSlide"
           >
             <UIcon name="i-heroicons-chevron-right" />
           </div>
@@ -65,9 +64,7 @@
       </ContentList>
     </div>
     <section>
-      <h2 :class="$style.heroTitle">
-        New here? Let’s begin your journey.
-      </h2>
+      <h2 :class="$style.heroTitle">New here? Let’s begin your journey.</h2>
       <p :class="$style.heroDescription">
         Explore our comprehensive step-by-step guides and unlock the potential
         to master new skills effortlessly. Whether you’re a beginner or looking
@@ -76,36 +73,39 @@
       </p>
       <div :class="$style.heroLinks">
         <a href="" :class="$style.heroLink">
-          <img src="/static-media-frontend/pliant/logo-comics.svg" alt="Logo"/>
+          <img src="/static-media-frontend/pliant/logo-comics.svg" alt="Logo" />
         </a>
         <a href="" :class="$style.heroLink">
-          <img src="/static-media-frontend/pliant/logo-collections.svg" alt="Logo"/>
+          <img
+            src="/static-media-frontend/pliant/logo-collections.svg"
+            alt="Logo"
+          />
         </a>
       </div>
     </section>
 
-    <div :class="$style.divider"/>
+    <div :class="$style.divider" />
 
     <ContentList
-        :path="`posts/${region}`"
-        fields="title,date,thumbnail,slug,tags,description"
-        :query="{ draft: false, sort: [{ date: -1 }] }"
-        v-slot="{ list }"
+      :path="`posts/${region}`"
+      fields="title,date,thumbnail,slug,tags,description"
+      :query="{ draft: false, sort: [{ date: -1 }] }"
+      v-slot="{ list }"
     >
       <template v-if="paginatedPosts(list).length > 0">
         <div :class="$style.postsGrid">
           <NuxtLink
-              v-for="blog in paginatedPosts(list)"
-              :key="blog._path"
-              :to="`/${region}/${blog.slug}`"
-              :class="$style.postCard"
+            v-for="blog in paginatedPosts(list)"
+            :key="blog._path"
+            :to="`/${region}/${blog.slug}`"
+            :class="$style.postCard"
           >
             <div :class="$style.postCardImageContainer">
               <img
-                  v-if="blog.thumbnail"
-                  :src="blog.thumbnail"
-                  :alt="blog.title"
-                  :class="$style.postCardImage"
+                v-if="blog.thumbnail"
+                :src="blog.thumbnail"
+                :alt="blog.title"
+                :class="$style.postCardImage"
               />
             </div>
             <div :class="$style.postCardContent">
@@ -118,8 +118,8 @@
               <div :class="$style.createCardLink">
                 try blog
                 <UIcon
-                    :class="$style.arrowIcon"
-                    name="i-solar-arrow-right-up-linear"
+                  :class="$style.arrowIcon"
+                  name="i-solar-arrow-right-up-linear"
                 />
               </div>
             </div>
@@ -127,39 +127,40 @@
         </div>
 
         <UPagination
-            v-if="filteredBlogs(list).length > POSTS_PER_PAGE"
-            v-model="page"
-            :page-count="pageCount(list)"
-            :total="filteredBlogs(list).length"
-            :class="$style.pagination"
-            show-last show-first
+          v-if="filteredBlogs(list).length > POSTS_PER_PAGE"
+          v-model="page"
+          :page-count="pageCount(list)"
+          :total="filteredBlogs(list).length"
+          :class="$style.pagination"
+          show-last
+          show-first
         />
       </template>
 
       <div v-else :class="$style.postsGridEmpty">
         <p :class="$style.postsGridEmptyText">No posts found.</p>
       </div>
-    </ContentList>
+    </ContentList> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { countryList } from '@/assets/country'
+import { countryList } from "@/assets/country";
 
 const props = defineProps({
   search: { type: String, default: "" },
 });
 
-const { isMobile } = useScreen()
-const sliderRef = ref<ComponentInstance<BaseSlider> | null>(null)
-const route = useRoute()
-const router = useRouter()
-const { region } = route.params
+const { isMobile } = useScreen();
+const sliderRef = ref<ComponentInstance<BaseSlider> | null>(null);
+const route = useRoute();
+const router = useRouter();
+const { region } = route.params;
 const page = ref(1);
-const listPost = ref([])
+const listPost = ref([]);
 const isNotFound = ref(false);
 const pending = ref(true);
-const regions = ref('');
+const regions = ref("");
 const POSTS_PER_PAGE = 12;
 
 function filteredBlogs(list: any[]) {
@@ -179,21 +180,24 @@ const paginatedPosts = (list: any[]) => {
   return filtered.slice(start, start + POSTS_PER_PAGE);
 };
 
-const pageCount = (list: any[]) => Math.ceil(filteredBlogs(list).length / POSTS_PER_PAGE);
+const pageCount = (list: any[]) =>
+  Math.ceil(filteredBlogs(list).length / POSTS_PER_PAGE);
 
 function nextSlide(): void {
-  sliderRef.value?.nextSlide()
-  sliderRef.value?.restartAutoplay()
+  sliderRef.value?.nextSlide();
+  sliderRef.value?.restartAutoplay();
 }
 
 function prevSlide(): void {
-  sliderRef.value?.prevSlide()
-  sliderRef.value?.restartAutoplay()
+  sliderRef.value?.prevSlide();
+  sliderRef.value?.restartAutoplay();
 }
 
 function getRegionByCountry(countryCode: string): string {
-  const region = Object.values(countryList).find(region => region === countryCode);
-  return region || '';
+  const region = Object.values(countryList).find(
+    (region) => region === countryCode
+  );
+  return region || "";
 }
 
 onMounted(() => {
@@ -213,11 +217,15 @@ onMounted(() => {
 
   pending.value = false;
 });
+
+const { data: page2 } = await useAsyncData(route.path, () => {
+  return queryCollection("rus").all();
+});
 </script>
 
 <style lang="scss" module>
 .base {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #fff;
   text-align: center;
 }
@@ -483,7 +491,7 @@ onMounted(() => {
   font-weight: 300;
   font-size: 14px;
   line-height: 17px;
-  color: #C5C5C5;
+  color: #c5c5c5;
   @include mobile {
     font-style: normal;
     font-weight: 300;
@@ -533,7 +541,7 @@ onMounted(() => {
   transform: translate(-50%, -50%);
   width: 881px;
   height: 488px;
-  background-image: url('/static-media-frontend/pliant/404.png');
+  background-image: url("/static-media-frontend/pliant/404.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -548,7 +556,7 @@ onMounted(() => {
   font-weight: 700;
   font-size: 50px;
   line-height: 160%;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 24px;
   @include mobile {
     font-style: normal;
@@ -564,7 +572,7 @@ onMounted(() => {
   font-size: 16px;
   line-height: 160%;
   text-align: center;
-  color: #CFCFCF;
+  color: #cfcfcf;
   margin-bottom: 24px;
   max-width: 358px;
   @include mobile {
