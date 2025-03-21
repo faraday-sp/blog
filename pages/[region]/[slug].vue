@@ -1,117 +1,103 @@
 <template>
   <article :class="$style.postArticle">
     <NuxtLink :to="`/${region}`" :class="$style.backButton" aria-label="Go back">
-      <UIcon :class="$style.arrowBack" name="i-solar-arrow-left-linear"/>
+      <UIcon :class="$style.arrowBack" name="i-solar-arrow-left-linear" />
     </NuxtLink>
 
     <div :class="$style.floatingButtons">
       <a href="#" :class="$style.buttonPurple">
-        <img src="/static-media-frontend/pliant/logo-sign-comics.svg" alt="comics"/>
+        <img src="/static-media-frontend/pliant/logo-sign-comics.svg" alt="comics" />
       </a>
       <a href="#" :class="$style.buttonPurple">
-        <img src="/static-media-frontend/pliant/logo-sign-collections.svg" alt="collections"/>
+        <img src="/static-media-frontend/pliant/logo-sign-collections.svg" alt="collections" />
       </a>
     </div>
 
     <h1 :class="$style.postTitle">{{ post?.title }}</h1>
 
-    <div v-if="post?.thumbnail" :class="$style.postImageWrapper">
-      <img :src="post.thumbnail" :alt="post.title" :class="$style.postImage"/>
+    <div v-if="post?.meta?.thumbnail" :class="$style.postImageWrapper">
+      <img :src="post?.meta?.thumbnail.toString()" :alt="post.title" :class="$style.postImage" />
     </div>
 
     <div v-if="post" :class="$style.postContent">
-      <ContentRenderer :value="post"/>
+      <ContentRenderer :value="post" />
     </div>
 
     <div :class="$style.bottomLogos">
       <a href="#" :class="$style.bottomLogoLink">
-        <img src="/static-media-frontend/pliant/logo-comics.svg" alt="Only Nice Comics"/>
+        <img src="/static-media-frontend/pliant/logo-comics.svg" alt="Only Nice Comics" />
       </a>
       <a href="#" :class="$style.bottomLogoLink">
-        <img src="/static-media-frontend/pliant/logo-collections.svg" alt="Only Nice Collections"/>
+        <img src="/static-media-frontend/pliant/logo-collections.svg" alt="Only Nice Collections" />
       </a>
     </div>
 
-    <div :class="$style.divider"/>
+    <div :class="$style.divider" />
 
-    <ContentList
-        :path="`/posts/${region}`"
-        fields="title,date,thumbnail,slug,tags,description"
-        :query="{ draft: false, sort: [{ date: -1 }] }"
-        v-slot="{ list }"
-    >
-      <div :class="$style.sliderSection">
-        <UCarousel
-            v-model="currentIndex"
-            :items="getFilteredItems(list)"
-            :arrows="getFilteredItems(list).length > 4"
-            @update:modelValue="onSlideChange"
-            :ui="{
-              item: 'flex-none px-2',
-              container: 'rounded-lg flex flex-row'
-            }"
+    <div :class="$style.sliderSection">
+        <NuxtLink
+            v-for="item in filteredItems"
+            :key="item.path"
+            :to="`/${region}/${item.meta.slug}`"
+            :class="$style.postCard"
         >
-          <NuxtLink
-              v-for="post in getFilteredItems(list)"
-              :key="post._path"
-              :to="`/${region}/${post.slug}`"
-              :class="$style.postCard"
-          >
-            <div :class="$style.postCardImageContainer">
-              <img
-                  v-if="post.thumbnail"
-                  :src="post.thumbnail"
-                  :alt="post.title"
-                  :class="$style.postCardImage"
-              />
+          <div :class="$style.postCardImageContainer">
+            <img
+                v-if="item.meta.thumbnail"
+                :src="item.meta.thumbnail.toString()"
+                :alt="item.title"
+                :class="$style.postCardImage"
+            />
+          </div>
+          <div :class="$style.postCardContent">
+            <h3 :class="$style.postCardTitle">{{ item.title }}</h3>
+            <p :class="$style.postCardDescription">{{ item.description }}</p>
+            <div :class="$style.createCardLink">
+              try blog
+              <UIcon :class="$style.arrowIcon" name="i-solar-arrow-right-up-linear" />
             </div>
-            <div :class="$style.postCardContent">
-              <h3 :class="$style.postCardTitle">
-                {{ post.title }}
-              </h3>
-              <p :class="$style.postCardDescription">
-                {{ post.description }}
-              </p>
-              <div :class="$style.createCardLink">
-                try blog
-                <UIcon
-                    :class="$style.arrowIcon"
-                    name="i-solar-arrow-right-up-linear"
-                />
-              </div>
-            </div>
-          </NuxtLink>
-        </UCarousel>
-      </div>
-    </ContentList>
+          </div>
+        </NuxtLink>
+    </div>
   </article>
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const { region, slug } = route.params
-const currentIndex = ref(0)
+import { withLeadingSlash, joinURL } from 'ufo';
+import type { Collections } from '@nuxt/content';
 
-const { data: post } = await useAsyncData(() =>
-    queryContent('posts')
-        .where({ _dir: region, slug })
-        .findOne()
-)
+const route = useRoute();
+const { region, slug } = route.params;
+
+const path = computed(() => withLeadingSlash(joinURL(region, slug)));
+const collection = computed(() => "rus" as keyof Collections);
+
+const { data: post } = await useAsyncData(path.value, async () =>
+    await queryCollection(collection.value).path(path.value).first() as Collections['rus']
+);
 
 if (!post.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Статья не найдена' })
+  throw createError({ statusCode: 404, statusMessage: "Статья не найдена" });
 }
 
-function onSlideChange(newVal: number) {
-  currentIndex.value = newVal
-}
+const { data: relatedPosts } = await useAsyncData(`related-posts-${region}`, async () =>
+    await queryCollection("rus").all()
+);
 
-function getFilteredItems(items: any[]) {
-  return items
-      .filter(item => item.slug !== slug)
-      .filter((item, idx, arr) =>
-          arr.findIndex(el => el.slug === item.slug) === idx
-      )
+
+const filteredItems = computed(() => getFilteredItems(relatedPosts.value || []));
+
+
+function getFilteredItems(items: Collections['rus'][]) {
+
+  const uniqueItems = new Map();
+  items.forEach(item => {
+    if (item.meta?.slug) {
+      uniqueItems.set(item.meta.slug, item);
+    }
+  });
+
+  return Array.from(uniqueItems.values()).filter(item => item.meta.slug !== slug);
 }
 </script>
 
@@ -256,6 +242,9 @@ function getFilteredItems(items: any[]) {
 }
 
 .sliderSection {
+  display: flex;
+  align-items: center;
+  gap: 25px;
   margin: 0 auto;
   text-align: center;
 }

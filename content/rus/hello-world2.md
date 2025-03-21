@@ -5,7 +5,7 @@ draft: false
 tags:
   - hello
   - world
-thumbnail: /img/viso.jpg
+thumbnail: /img/mongodb.webp
 slug: hello-world2
 ---
 

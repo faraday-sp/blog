@@ -2,67 +2,62 @@
   <div v-if="pending" :class="$style.loading">
     <img src="/static-media-frontend/icon/tube-spinner.svg" alt="loading..." />
   </div>
+
   <div v-else-if="isNotFound" :class="$style.errorBase">
     <div :class="$style.errorBaseTitle">Page not found</div>
     <div :class="$style.errorBaseDesription">
       The page you are looking for doesn’t exist or has been moved
     </div>
     <UButton
-      size="lg"
-      color="green"
-      :class="$style.errorBaseButton"
-      @click="router.replace('/')"
+        size="lg"
+        color="green"
+        :class="$style.errorBaseButton"
+        @click="router.replace('/')"
     >
       Back to home
     </UButton>
   </div>
+
   <div v-else :class="$style.base">
-    {{ page2 }}
-    <!-- <div :class="$style.sliderContainer">
-      <ContentList
-        :path="`posts/${region}`"
-        fields="title,thumbnail"
-        :query="{ draft: false, sort: [{ date: -1 }] }"
-        v-slot="{ list }"
-      >
+    <div v-if="bannersPending" :class="$style.loading">
+      <img src="/static-media-frontend/icon/tube-spinner.svg" alt="loading..." />
+    </div>
+
+    <div v-else-if="bannerList?.length">
+      <div :class="$style.sliderContainer">
         <BaseSlider
-          ref="sliderRef"
-          :cl="[$style.slider]"
-          :slideList="list"
-          :gap="isMobile ? 15 : 25"
-          :disabledPointerEvents="false"
-          :autoplay="5000"
-          loop
-          :mod="['mainPageDots']"
-          dots
+            ref="sliderRef"
+            :cl="[$style.slider]"
+            :slideList="bannerList"
+            :gap="isMobile ? 15 : 25"
+            :disabledPointerEvents="false"
+            :autoplay="5000"
+            loop
+            :mod="['mainPageDots']"
+            dots
         >
           <template #slide="{ slide: banner }">
             <img
-              :src="banner.thumbnail"
-              :alt="banner.title"
-              draggable="false"
-              :class="$style.carouselImage"
-              @click="router.push(`/${region}/${banner.slug}`)"
+                :src="banner.meta?.thumbnail"
+                :alt="banner.title"
+                draggable="false"
+                :class="$style.carouselImage"
+                @click="router.push(banner.path)"
             />
           </template>
         </BaseSlider>
 
-        <template v-if="list && list.length >= 1">
-          <div
-            :class="[$style.arrow, $style.arrowLeft]"
-            @click.prevent="prevSlide"
-          >
+        <template v-if="bannerList.length >= 1">
+          <div :class="[$style.arrow, $style.arrowLeft]" @click.prevent="prevSlide">
             <UIcon name="i-heroicons-chevron-left" />
           </div>
-          <div
-            :class="[$style.arrow, $style.arrowRight]"
-            @click.prevent="nextSlide"
-          >
+          <div :class="[$style.arrow, $style.arrowRight]" @click.prevent="nextSlide">
             <UIcon name="i-heroicons-chevron-right" />
           </div>
         </template>
-      </ContentList>
+      </div>
     </div>
+
     <section>
       <h2 :class="$style.heroTitle">New here? Let’s begin your journey.</h2>
       <p :class="$style.heroDescription">
@@ -77,75 +72,85 @@
         </a>
         <a href="" :class="$style.heroLink">
           <img
-            src="/static-media-frontend/pliant/logo-collections.svg"
-            alt="Logo"
+              src="/static-media-frontend/pliant/logo-collections.svg"
+              alt="Logo"
           />
         </a>
       </div>
     </section>
 
     <div :class="$style.divider" />
-
-    <ContentList
-      :path="`posts/${region}`"
-      fields="title,date,thumbnail,slug,tags,description"
-      :query="{ draft: false, sort: [{ date: -1 }] }"
-      v-slot="{ list }"
-    >
-      <template v-if="paginatedPosts(list).length > 0">
-        <div :class="$style.postsGrid">
-          <NuxtLink
-            v-for="blog in paginatedPosts(list)"
-            :key="blog._path"
-            :to="`/${region}/${blog.slug}`"
+    <template v-if="allPosts && paginatedPosts(allPosts).length > 0">
+      <div :class="$style.postsGrid">
+        <NuxtLink
+            v-for="blog in paginatedPosts(allPosts)"
+            :key="blog.path"
+            :to="blog.path"
             :class="$style.postCard"
-          >
-            <div :class="$style.postCardImageContainer">
-              <img
-                v-if="blog.thumbnail"
-                :src="blog.thumbnail"
+        >
+          <div :class="$style.postCardImageContainer">
+            <img
+                :src="blog.meta?.thumbnail"
                 :alt="blog.title"
                 :class="$style.postCardImage"
-              />
-            </div>
-            <div :class="$style.postCardContent">
-              <h3 :class="$style.postCardTitle">
-                {{ blog.title }}
-              </h3>
-              <p :class="$style.postCardDescription">
-                {{ blog.description }}
-              </p>
-              <div :class="$style.createCardLink">
-                try blog
-                <UIcon
+            />
+          </div>
+          <div :class="$style.postCardContent">
+            <h3 :class="$style.postCardTitle">
+              {{ blog.title }}
+            </h3>
+            <p :class="$style.postCardDescription">
+              {{ blog.description }}
+            </p>
+            <div :class="$style.createCardLink">
+              try blog
+              <UIcon
                   :class="$style.arrowIcon"
                   name="i-solar-arrow-right-up-linear"
-                />
-              </div>
+              />
             </div>
-          </NuxtLink>
-        </div>
+          </div>
+        </NuxtLink>
+      </div>
 
-        <UPagination
-          v-if="filteredBlogs(list).length > POSTS_PER_PAGE"
+      <UPagination
+          v-if="filteredBlogs(allPosts).length > POSTS_PER_PAGE"
           v-model="page"
-          :page-count="pageCount(list)"
-          :total="filteredBlogs(list).length"
+          :page-count="pageCount(allPosts)"
+          :total="filteredBlogs(allPosts).length"
           :class="$style.pagination"
           show-last
           show-first
-        />
-      </template>
+      />
+    </template>
 
-      <div v-else :class="$style.postsGridEmpty">
-        <p :class="$style.postsGridEmptyText">No posts found.</p>
-      </div>
-    </ContentList> -->
+    <div v-else :class="$style.postsGridEmpty">
+      <p :class="$style.postsGridEmptyText">No posts found.</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { countryList } from "@/assets/country";
+
+interface BannerItem {
+  title: string;
+  path: string;
+  meta?: {
+    thumbnail?: string;
+  };
+}
+
+interface PostItem {
+  title: string;
+  path: string;
+  thumbnail?: string;
+  date?: string;
+  slug?: string;
+  tags?: string[];
+  description?: string;
+  meta?: Record<string, any>;
+}
 
 const props = defineProps({
   search: { type: String, default: "" },
@@ -155,21 +160,26 @@ const { isMobile } = useScreen();
 const sliderRef = ref<ComponentInstance<BaseSlider> | null>(null);
 const route = useRoute();
 const router = useRouter();
-const { region } = route.params;
 const page = ref(1);
-const listPost = ref([]);
 const isNotFound = ref(false);
 const pending = ref(true);
 const regions = ref("");
 const POSTS_PER_PAGE = 12;
 
-function filteredBlogs(list: any[]) {
+const { data: bannerList, pending: bannersPending } = await useAsyncData(route.path, () => {
+  return queryCollection("rus").all();
+});
+
+const { data: allPosts } = await useAsyncData(route.path, () => {
+  return queryCollection("rus").all();
+});
+
+function filteredBlogs(list: PostItem[]) {
   if (!props.search.trim()) return list;
   const q = props.search.toLowerCase();
   return list.filter((post) => {
     const title = (post.title || "").toLowerCase();
     const tagsStr = (post.tags || []).join(" ").toLowerCase();
-    listPost.value = title.includes(q) || tagsStr.includes(q);
     return title.includes(q) || tagsStr.includes(q);
   });
 }
@@ -216,10 +226,6 @@ onMounted(() => {
   }
 
   pending.value = false;
-});
-
-const { data: page2 } = await useAsyncData(route.path, () => {
-  return queryCollection("rus").all();
 });
 </script>
 
