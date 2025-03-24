@@ -1,11 +1,11 @@
 <template>
   <header
-      class="sticky top-0 flex w-full py-3 px-3 mb:px-3 mb:py-2 border-b border-gray-700/50 bg-gray-900/80 backdrop-blur-md backdrop-saturate-150 z-50 transition-transform ease-in-out"
+      class="sticky top-0 flex w-full py-3 px-3 mb:px-3 mb:py-2 border-b border-gray-700/50 bg-natural-900/80 backdrop-blur-md backdrop-saturate-150 z-50 transition-transform ease-in-out"
       style="transition-duration: 400ms"
   >
     <div
         :class="$style.base"
-        class="absolute -translate-x-1/2 mb:hidden flex"
+        class="absolute -translate-x-1/2 max-mb:hidden flex"
         :style="{
         left: 'calc(50% + 36px)',
       }"
@@ -15,8 +15,10 @@
           placeholder="Search Comics, Tags, Autors..."
           class="w-full"
           :ui="{
-            rounded: 'rounded-full',
+            trailingIcon: 'rounded-full',
           }"
+          color="neutral"
+          variant="outline"
           size="md"
           leadingIcon="i-solar-rounded-magnifer-outline"
           @input="onInput"
@@ -35,7 +37,7 @@
         </NuxtLink>
       </div>
       <div class="flex gap-2 mb:gap-1.5">
-        <UButton color="gray" variant="solid" :class="$style.aboutButton">
+        <UButton color="neutral" variant="solid" :class="$style.aboutButton">
           About
         </UButton>
       </div>
@@ -123,22 +125,22 @@ function clearSearch() {
 .searchContainer input {
   border-radius: 20px;
   height: 36px;
-  --tw-ring-color: #2B2B2B !important;
-  background-color: #171717 !important;
-  &:hover {
-    background-color: #232323 !important;
-  }
+  //--tw-ring-color: #2B2B2B !important;
+  //background-color: #171717 !important;
+  //&:hover {
+  //  background-color: #232323 !important;
+  //}
 }
 
 .aboutButton {
-  --tw-ring-color: #2B2B2B !important;
+  //--tw-ring-color: #2B2B2B !important;
   width: 98px;
   height: 36px;
   text-align: center;
   justify-content: center;
-  background-color: #171717 !important;
-  &:hover {
-    background-color: #232323 !important;
-  }
+  //background-color: #171717 !important;
+  //&:hover {
+  //  background-color: #232323 !important;
+  //}
 }
 </style>

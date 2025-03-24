@@ -11,20 +11,16 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxtjs/tailwindcss": "6.13.2",
     "nuxt": "3.16.0",
     "sass": "1.83.1"
   },
   "dependencies": {
     "@nuxt/content": "3.3.0",
-    "@nuxt/ui": "2.21.1"
+    "@nuxt/ui": "3.0.1",
+    "@tailwindcss/vite": "^4.0.15",
+    "tailwindcss": "^4.0.15"
   },
   "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@parcel/watcher",
-      "better-sqlite3",
-      "esbuild"
-    ],
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "better-sqlite3",

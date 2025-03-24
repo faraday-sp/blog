@@ -70,7 +70,7 @@ const route = useRoute();
 const { region, slug } = route.params;
 
 const path = computed(() => withLeadingSlash(joinURL(region, slug)));
-const collection = computed(() => "rus" as keyof Collections);
+const collection = computed(() => route.params?.region?.toString() as keyof Collections);
 
 const { data: post } = await useAsyncData(path.value, async () =>
     await queryCollection(collection.value).path(path.value).first() as Collections['rus']
@@ -81,7 +81,7 @@ if (!post.value) {
 }
 
 const { data: relatedPosts } = await useAsyncData(`related-posts-${region}`, async () =>
-    await queryCollection("rus").all()
+    await queryCollection(route.params?.region?.toString() as keyof Collections).all()
 );
 
 

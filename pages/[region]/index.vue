@@ -132,6 +132,7 @@
 
 <script setup lang="ts">
 import { countryList } from "@/assets/country";
+import type {Collections} from "@nuxt/content";
 
 interface BannerItem {
   title: string;
@@ -167,11 +168,11 @@ const regions = ref("");
 const POSTS_PER_PAGE = 12;
 
 const { data: bannerList, pending: bannersPending } = await useAsyncData(route.path, () => {
-  return queryCollection("rus").all();
+  return queryCollection(route.params?.region?.toString() as keyof Collections).all();
 });
 
 const { data: allPosts } = await useAsyncData(route.path, () => {
-  return queryCollection("rus").all();
+  return queryCollection(route.params?.region?.toString() as keyof Collections).all();
 });
 
 function filteredBlogs(list: PostItem[]) {

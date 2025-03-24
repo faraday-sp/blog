@@ -1,6 +1,10 @@
 // html {
 //   scroll-behavior: smooth;
 // }
+//
+//@tailwind base;
+//@tailwind components;
+//@tailwind utilities;
 
 body {
   font-size: 16px;
@@ -20,9 +24,9 @@ body {
 //   scrollbar-width: thin;
 // }
 
-.containerPage {
-  @apply px-8 pt-4 mx-auto w-full lp:px-8 tb:px-6 mb:px-3;
-}
+//.containerPage {
+//  @apply px-8 pt-4 mx-auto w-full lp:px-8 tb:px-6 mb:px-3;
+//}
 
 .hideDesktop {
   @include desktop {
