@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ["@nuxt/content", "@nuxt/ui"],
@@ -16,6 +18,9 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    plugins: [
+      tailwindcss(),
+    ],
     css: {
       preprocessorOptions: {
         scss: {

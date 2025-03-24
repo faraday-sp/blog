@@ -24,7 +24,8 @@
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "better-sqlite3",
-      "esbuild"
+      "esbuild",
+      "vue-demi"
     ]
   }
 }
