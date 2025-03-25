@@ -1,10 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  devtools: { enabled: false },
-  modules: ["@nuxt/content", "@nuxt/ui"],
-  css: ['./assets/scss/main.scss', '~/assets/scss/index.css'],
-  compatibilityDate: "2025-02-24",
   app: {
     head: {
       link: [
@@ -17,10 +13,11 @@ export default defineNuxtConfig({
       title: '',
     },
   },
+  compatibilityDate: '2025-02-24',
+  css: ['./assets/scss/main.scss', '~/assets/scss/index.css'],
+  devtools: { enabled: false },
+  modules: ['@nuxt/content', '@nuxt/ui'],
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
     css: {
       preprocessorOptions: {
         scss: {
@@ -32,5 +29,6 @@ export default defineNuxtConfig({
         },
       },
     },
+    plugins: [tailwindcss()],
   },
-});
+})

@@ -1,155 +1,193 @@
 <template>
-  <footer :class="$style.footer">
+  <footer :class="[$style.footer, ...props.cl]">
     <div :class="$style.footerContainer">
       <div class="flex items-center gap-4">
         <NuxtLink
-            to="/"
-            :cl="['transition-transform duration-300 active:scale-95 flex rounded-md w-fit']"
+          to="/"
+          :cl="['transition-transform duration-300 active:scale-95 flex rounded-md w-fit']"
         >
           <BaseImg
-              src="logo.svg"
-              class="min-w-36 w-36 mb:min-w-32 mb:w-32"
+            src="logo.svg"
+            :cl="['min-w-36 w-36 mb:min-w-32 mb:w-32']"
           />
         </NuxtLink>
       </div>
       <nav :class="$style.footerNav">
-        <NuxtLink to="" :class="$style.footerLink">
+        <NuxtLink
+          to=""
+          :class="$style.footerLink"
+        >
           Privacy Policy
         </NuxtLink>
-        <NuxtLink to="" :class="$style.footerLink">
+        <NuxtLink
+          to=""
+          :class="$style.footerLink"
+        >
           Terms of Service
         </NuxtLink>
-        <NuxtLink to="" :class="$style.footerLink">
+        <NuxtLink
+          to=""
+          :class="$style.footerLink"
+        >
           Support
         </NuxtLink>
       </nav>
 
       <div :class="$style.footerRight">
         <div :class="$style.footerSocials">
-          <NuxtLink :to="facebookLink" aria-label="Facebook" :class="$style.socialLink">
-            <img src="/static-media-frontend/icon/facebook.svg" alt="Facebook" />
+          <NuxtLink
+            :to="FACEBOOKLINK"
+            aria-label="Facebook"
+            :class="$style.socialLink"
+          >
+            <img
+              src="/static-media-frontend/icon/facebook.svg"
+              alt="Facebook"
+            />
           </NuxtLink>
-          <NuxtLink :to="twitterLink" aria-label="Twitter" :class="$style.socialLink">
-            <img src="/static-media-frontend/icon/twitter.svg" alt="Twitter" />
+          <NuxtLink
+            :to="TWITTERLINK"
+            aria-label="Twitter"
+            :class="$style.socialLink"
+          >
+            <img
+              src="/static-media-frontend/icon/twitter.svg"
+              alt="Twitter"
+            />
           </NuxtLink>
-          <NuxtLink :to="telegramLink" aria-label="Telegram" :class="$style.socialLink">
-            <img src="/static-media-frontend/icon/telegram.svg" alt="Telegram" />
+          <NuxtLink
+            :to="TELEGRAMLINK"
+            aria-label="Telegram"
+            :class="$style.socialLink"
+          >
+            <img
+              src="/static-media-frontend/icon/telegram.svg"
+              alt="Telegram"
+            />
           </NuxtLink>
-          <NuxtLink :to="instagramLink" aria-label="Instagram" :class="$style.socialLink">
-            <img src="/static-media-frontend/icon/instagram.svg" alt="Instagram" />
+          <NuxtLink
+            :to="INSTAGRAMLINK"
+            aria-label="Instagram"
+            :class="$style.socialLink"
+          >
+            <img
+              src="/static-media-frontend/icon/instagram.svg"
+              alt="Instagram"
+            />
           </NuxtLink>
         </div>
       </div>
     </div>
-    <div :class="$style.footerCopyright">
-      © {{ currentYear }} Only Nice
-    </div>
+    <div :class="$style.footerCopyright">© {{ currentYear }} Only Nice</div>
   </footer>
 </template>
 
 <script setup lang="ts">
+  const props = defineProps<{
+    cl: PropsCl[]
+  }>()
 
-const facebookLink = '#'
-const twitterLink = '#'
-const telegramLink = '#'
-const instagramLink = '#'
+  const FACEBOOKLINK = '#'
+  const TWITTERLINK = '#'
+  const TELEGRAMLINK = '#'
+  const INSTAGRAMLINK = '#'
 
-const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" module>
-.footer {
-  background-color: #171717;
-  color: #ffffff;
-  border-top: 1px solid #2b2b2b;
-}
+  .footer {
+    background-color: #171717;
+    color: #ffffff;
+    border-top: 1px solid #2b2b2b;
+  }
 
-.footerContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 24px;
-  @include mobile {
-    padding: 16px;
+  .footerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 24px;
+    @include mobile {
+      padding: 16px;
+      flex-direction: column;
+    }
+  }
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logoLink {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    text-decoration: none;
   }
-}
 
-.logoContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+  .footerNav {
+    display: flex;
+    gap: 2rem;
+    cursor: pointer;
+    @include mobile {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      margin: 32px 0;
+    }
+  }
 
-.logoLink {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-}
+  .footerLink {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+    transition: opacity 0.2s;
 
-.footerNav {
-  display: flex;
-  gap: 2rem;
-  cursor: pointer;
-  @include mobile {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .footerRight {
+    display: flex;
     flex-direction: column;
-    gap: 12px;
-    text-align: center;
-    margin: 32px 0;
+    align-items: center;
+    gap: 2rem;
   }
-}
 
-.footerLink {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: #FFFFFF;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.7;
+  .footerSocials {
+    display: flex;
+    gap: 1rem;
   }
-}
 
-.footerRight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
+  .socialLink {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: opacity 0.2s;
 
-.footerSocials {
-  display: flex;
-  gap: 1rem;
-}
-
-.socialLink {
-  color: #ffffff;
-  font-size: 1.2rem;
-  text-decoration: none;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.7;
+    &:hover {
+      opacity: 0.7;
+    }
   }
-}
 
-.footerCopyright {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  padding: 0 24px 24px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: #D2D2D2;
-  @include mobile {
-    justify-content: center;
-    margin-top: 32px;
+  .footerCopyright {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0 24px 24px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #d2d2d2;
+    @include mobile {
+      justify-content: center;
+      margin-top: 32px;
+    }
   }
-}
 </style>

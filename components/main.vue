@@ -1,16 +1,16 @@
 <template>
-  <main :class="$style.main">
+  <main :class="[$style.main, ...props.cl]">
     <NuxtPage :search="search" />
   </main>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
-const props = defineProps<{
-  search: string
-}>()
+  const props = defineProps<{
+    cl: PropsCl[]
+    search: string
+  }>()
 </script>
+
 <style lang="scss" module>
   .main {
     padding: 24px;

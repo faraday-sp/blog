@@ -47,17 +47,18 @@ export default defineAppConfig({
     input: {
       base: 'font-semibold caret-main-300 relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0',
 
+      defaultVariants: {
+        variant: 'outline',
+      },
+
       variant: {
+        ghost:
+          'text-(--ui-text-highlighted) bg-transparent hover:bg-(--ui-bg-elevated) focus:bg-(--ui-bg-elevated) disabled:bg-transparent dark:disabled:bg-transparent',
+        none: 'text-(--ui-text-highlighted) bg-transparent',
         outline: 'text-(--ui-text-highlighted) bg-(--ui-bg, #FF0000) ring ring-inset ring-[#FF0000]',
         soft: 'text-(--ui-text-highlighted) bg-(--ui-bg-elevated)/50 hover:bg-(--ui-bg-elevated) focus:bg-(--ui-bg-elevated) disabled:bg-(--ui-bg-elevated)/50',
         subtle: 'text-(--ui-text-highlighted) bg-(--ui-bg-elevated) ring ring-inset ring-(--ui-border-accented)',
-        ghost: 'text-(--ui-text-highlighted) bg-transparent hover:bg-(--ui-bg-elevated) focus:bg-(--ui-bg-elevated) disabled:bg-transparent dark:disabled:bg-transparent',
-        none: 'text-(--ui-text-highlighted) bg-transparent'
       },
-
-      defaultVariants: {
-        variant: 'outline'
-      }
     },
     modal: {
       fullscreen: 'min-h-screen h-full',

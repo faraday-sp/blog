@@ -620,233 +620,233 @@
 </script>
 
 <style lang="scss" module>
-.base {
-  width: 100%;
-  overflow: var(--base-slider-overflow, hidden);
-  position: relative;
-
-  &.disabledPointerEvents {
-    .slide {
-      touch-action: auto;
-    }
-  }
-}
-
-.slideList {
-  display: flex;
-  column-gap: var(--base-slider-gap, 0);
-  position: relative;
-  left: 0;
-  transition: var(--base-slider-transition, transform 800ms cubic-bezier(0.19, 1, 0.3, 1));
-
-  &.unmounted {
+  .base {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--base-slider-slide-width, 0), 1fr));
-    grid-template-rows: var(--base-slider-skeleton-rows, 1fr);
-    grid-auto-rows: 0;
-    column-gap: var(--base-slider-skeleton-gap, var(--base-slider-gap, 0));
-    overflow: hidden;
-    @include mobile {
-      grid-template-columns: repeat(auto-fill, minmax(var(--base-slider-slide-width-mobile, 0), 1fr));
-    }
-  }
-}
-
-.slide {
-  touch-action: pan-y;
-  display: flex;
-  justify-content: center;
-  flex-basis: 0;
-  position: relative;
-  opacity: var(--base-slider-inactive-opacity, 1);
-  transition: opacity 0.2s ease-in-out;
-  min-width: var(--base-slider-slide-width, 0);
-  transform: translateX(var(--base-slider-virtual-transform, 0));
-  @include mobile {
-    min-width: var(--base-slider-slide-width-mobile, 0);
-  }
-
-  .unmounted & {
-    transform: none;
-    overflow: hidden;
-  }
-  .loop .unmounted & {
-    &:first-child {
-      display: none;
-    }
-  }
-}
-
-.slideMultiRow {
-  flex-direction: column;
-  justify-content: flex-start;
-  row-gap: var(--base-slider-gap, 0);
-}
-
-.slideActive {
-  opacity: 1;
-}
-
-.dotWrapper {
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: var(--base-slide-dot-gap, 4px);
-  z-index: 2;
-  position: absolute;
-  bottom: 12px;
-  margin: 0 auto;
-  display: flex;
-  @include mobile {
-    gap: 8px;
-    bottom: 12px;
-  }
-}
-
-.dot {
-  width: 16px;
-  height: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  border-radius: 99px;
-  background: var(--bg10);
-  position: relative;
-  overflow: hidden;
-  @include mobile {
-    width: 6px;
-    height: 6px;
-  }
-}
-.dotElapsed {
-  background-color: var(--primary100);
-}
-.dotActiveLine {
-  width: 40px;
-  &::after {
-    content: '';
-    background-color: var(--primary100);
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left: -100%;
-    top: 0;
-    animation: progressAnimation 6.8s linear forwards;
-  }
-  @include mobile {
-    background-color: var(--primary100);
-    width: 6px;
-    &::after {
-      display: none;
-    }
-  }
-}
-.dotActive {
-  &::after {
-    content: '';
-    background-color: var(--primary100);
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left: -100%;
-    top: 0;
-  }
-  @include mobile {
-    background-color: var(--primary100);
-    width: 6px;
-    &::after {
-      display: none;
-    }
-  }
-}
-.smallDots {
-  .dot {
-    background: #535353;
-    width: 6px;
-    height: 6px;
-  }
-  .dotWrapper {
+    overflow: var(--base-slider-overflow, hidden);
     position: relative;
-    margin-top: 10px;
-    bottom: 0;
-  }
-  .dotActiveLine {
-    width: 6px;
-    &::after {
-      display: block;
-    }
-  }
-  .dotActive {
-    background-color: var(--primary100);
-    &::after {
-      display: block;
-    }
-  }
-  .dotElapsed {
-    background-color: var(--primary100);
-  }
-}
 
-.mainPageDots {
-  .dotWrapper {
-    width: auto;
-    background: #171717;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 40px;
-    gap: 6px;
-    padding: 6px;
-    @include mobile {
-      padding: 4px;
-      border-radius: 20px;
-      gap: 4px;
+    &.disabledPointerEvents {
+      .slide {
+        touch-action: auto;
+      }
     }
   }
+
+  .slideList {
+    display: flex;
+    column-gap: var(--base-slider-gap, 0);
+    position: relative;
+    left: 0;
+    transition: var(--base-slider-transition, transform 800ms cubic-bezier(0.19, 1, 0.3, 1));
+
+    &.unmounted {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(var(--base-slider-slide-width, 0), 1fr));
+      grid-template-rows: var(--base-slider-skeleton-rows, 1fr);
+      grid-auto-rows: 0;
+      column-gap: var(--base-slider-skeleton-gap, var(--base-slider-gap, 0));
+      overflow: hidden;
+      @include mobile {
+        grid-template-columns: repeat(auto-fill, minmax(var(--base-slider-slide-width-mobile, 0), 1fr));
+      }
+    }
+  }
+
+  .slide {
+    touch-action: pan-y;
+    display: flex;
+    justify-content: center;
+    flex-basis: 0;
+    position: relative;
+    opacity: var(--base-slider-inactive-opacity, 1);
+    transition: opacity 0.2s ease-in-out;
+    min-width: var(--base-slider-slide-width, 0);
+    transform: translateX(var(--base-slider-virtual-transform, 0));
+    @include mobile {
+      min-width: var(--base-slider-slide-width-mobile, 0);
+    }
+
+    .unmounted & {
+      transform: none;
+      overflow: hidden;
+    }
+    .loop .unmounted & {
+      &:first-child {
+        display: none;
+      }
+    }
+  }
+
+  .slideMultiRow {
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: var(--base-slider-gap, 0);
+  }
+
+  .slideActive {
+    opacity: 1;
+  }
+
+  .dotWrapper {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: var(--base-slide-dot-gap, 4px);
+    z-index: 2;
+    position: absolute;
+    bottom: 12px;
+    margin: 0 auto;
+    display: flex;
+    @include mobile {
+      gap: 8px;
+      bottom: 12px;
+    }
+  }
+
   .dot {
-    background: #535353;
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 99px;
+    background: var(--bg10);
+    position: relative;
+    overflow: hidden;
     @include mobile {
       width: 6px;
       height: 6px;
     }
   }
+  .dotElapsed {
+    background-color: var(--primary100);
+  }
   .dotActiveLine {
-    width: 22px;
+    width: 40px;
     &::after {
-      display: block;
+      content: '';
+      background-color: var(--primary100);
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: -100%;
+      top: 0;
+      animation: progressAnimation 6.8s linear forwards;
+    }
+    @include mobile {
+      background-color: var(--primary100);
+      width: 6px;
+      &::after {
+        display: none;
+      }
     }
   }
   .dotActive {
-    background-color: #fff;
     &::after {
-      display: block;
+      content: '';
+      background-color: var(--primary100);
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: -100%;
+      top: 0;
+    }
+    @include mobile {
+      background-color: var(--primary100);
+      width: 6px;
+      &::after {
+        display: none;
+      }
     }
   }
-  .dotElapsed {
-    background-color: #535353;
+  .smallDots {
+    .dot {
+      background: #535353;
+      width: 6px;
+      height: 6px;
+    }
+    .dotWrapper {
+      position: relative;
+      margin-top: 10px;
+      bottom: 0;
+    }
+    .dotActiveLine {
+      width: 6px;
+      &::after {
+        display: block;
+      }
+    }
+    .dotActive {
+      background-color: var(--primary100);
+      &::after {
+        display: block;
+      }
+    }
+    .dotElapsed {
+      background-color: var(--primary100);
+    }
   }
-}
 
-.interacted {
-  .dotActiveLine::after {
-    animation: none;
-    transform: translateX(100%);
+  .mainPageDots {
+    .dotWrapper {
+      width: auto;
+      background: #171717;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 40px;
+      gap: 6px;
+      padding: 6px;
+      @include mobile {
+        padding: 4px;
+        border-radius: 20px;
+        gap: 4px;
+      }
+    }
+    .dot {
+      background: #535353;
+      width: 8px;
+      height: 8px;
+      @include mobile {
+        width: 6px;
+        height: 6px;
+      }
+    }
+    .dotActiveLine {
+      width: 22px;
+      &::after {
+        display: block;
+      }
+    }
+    .dotActive {
+      background-color: #fff;
+      &::after {
+        display: block;
+      }
+    }
+    .dotElapsed {
+      background-color: #535353;
+    }
   }
-}
 
-@keyframes progressAnimation {
-  0% {
-    transform: translateX(0%);
+  .interacted {
+    .dotActiveLine::after {
+      animation: none;
+      transform: translateX(100%);
+    }
   }
-  100% {
-    transform: translateX(100%);
+
+  @keyframes progressAnimation {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
-}
-.wrapedMobile {
-  @include mobile {
-    flex-direction: column;
-    gap: 6px;
+  .wrapedMobile {
+    @include mobile {
+      flex-direction: column;
+      gap: 6px;
+    }
   }
-}
 </style>
