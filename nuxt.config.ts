@@ -14,21 +14,10 @@ export default defineNuxtConfig({
     },
   },
   compatibilityDate: '2025-02-24',
-  css: ['./assets/scss/main.scss', '~/assets/scss/index.css'],
+  css: ['./assets/css/main.css', '~/assets/css/index.css'],
   devtools: { enabled: false },
   modules: ['@nuxt/content', '@nuxt/ui'],
   vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @use 'sass:math';
-            @use './assets/scss/compile/_mixins.scss' as *;
-          `,
-          api: 'modern-compiler',
-        },
-      },
-    },
     plugins: [tailwindcss()],
   },
 })

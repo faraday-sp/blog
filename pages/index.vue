@@ -36,15 +36,16 @@
   })
 </script>
 
-<style lang="scss" module>
+<style module>
   .loading {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    img {
-      width: 60px;
-      height: 60px;
-    }
+  }
+
+  .loading img {
+    width: 60px;
+    height: 60px;
   }
 </style>

@@ -95,7 +95,7 @@
   const currentYear = new Date().getFullYear()
 </script>
 
-<style lang="scss" module>
+<style module>
   .footer {
     background-color: #171717;
     color: #ffffff;
@@ -108,7 +108,10 @@
     justify-content: space-between;
     margin: 0 auto;
     padding: 24px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .footerContainer {
       padding: 16px;
       flex-direction: column;
     }
@@ -131,7 +134,11 @@
     display: flex;
     gap: 2rem;
     cursor: pointer;
-    @include mobile {
+  }
+
+  /* Mobile layout adjustments for footerNav */
+  @media (max-width: 640px) {
+    .footerNav {
       flex-direction: column;
       gap: 12px;
       text-align: center;
@@ -146,10 +153,10 @@
     line-height: 20px;
     color: #ffffff;
     transition: opacity 0.2s;
+  }
 
-    &:hover {
-      opacity: 0.7;
-    }
+  .footerLink:hover {
+    opacity: 0.7;
   }
 
   .footerRight {
@@ -169,10 +176,10 @@
     font-size: 1.2rem;
     text-decoration: none;
     transition: opacity 0.2s;
+  }
 
-    &:hover {
-      opacity: 0.7;
-    }
+  .socialLink:hover {
+    opacity: 0.7;
   }
 
   .footerCopyright {
@@ -185,7 +192,10 @@
     font-size: 16px;
     line-height: 20px;
     color: #d2d2d2;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .footerCopyright {
       justify-content: center;
       margin-top: 32px;
     }

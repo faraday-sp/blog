@@ -145,7 +145,7 @@
   }
 </script>
 
-<style lang="scss" module>
+<style module>
   .postArticle {
     position: relative;
     background-color: #171717;
@@ -162,10 +162,13 @@
     text-decoration: none;
     color: #fff;
     transition: color 0.3s;
-    &:hover {
-      color: #ececec;
-    }
-    @include mobile {
+  }
+  .backButton:hover {
+    color: #ececec;
+  }
+
+  @media (max-width: 640px) {
+    .backButton {
       position: unset;
       padding: 0;
     }
@@ -174,7 +177,10 @@
   .arrowBack {
     width: 25px;
     height: 25px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .arrowBack {
       width: 15px;
       height: 15px;
     }
@@ -190,7 +196,10 @@
     flex-direction: column;
     gap: 0.75rem;
     z-index: 20;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .floatingButtons {
       display: none;
     }
   }
@@ -206,7 +215,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .buttonPurple {
       width: 40px;
       height: 40px;
     }
@@ -218,7 +230,10 @@
     max-width: 48rem;
     margin: 26px auto 32px;
     text-align: left;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .postTitle {
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
@@ -243,7 +258,10 @@
     max-width: 48rem;
     margin: 0 auto 2rem;
     line-height: 1.7;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .postContent {
       max-width: 100%;
       padding: 0;
     }
@@ -255,14 +273,21 @@
     align-items: center;
     gap: 60px;
     margin-bottom: 2rem;
-    @media (min-width: 768px) {
+  }
+
+  @media (min-width: 768px) {
+    .bottomLogos {
       flex-direction: row;
       justify-content: center;
     }
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .bottomLogos {
       gap: 12px;
     }
   }
+
   .bottomLogoLink {
     display: block;
     background-color: #1c1c1c;
@@ -270,18 +295,21 @@
     padding: 1rem 1.5rem;
     transition: background-color 0.3s;
     width: 299px;
-    &:hover {
-      background-color: #232323;
-    }
-    @include mobile {
+  }
+  .bottomLogoLink:hover {
+    background-color: #232323;
+  }
+
+  @media (max-width: 640px) {
+    .bottomLogoLink {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      img {
-        height: 30px;
-      }
       padding: 12px;
+    }
+    .bottomLogoLink img {
+      height: 30px;
     }
   }
 
@@ -306,10 +334,9 @@
     transition: box-shadow 0.3s;
     display: block;
     text-align: left;
-
-    &:hover {
-      opacity: 0.8;
-    }
+  }
+  .postCard:hover {
+    opacity: 0.8;
   }
 
   .postCardImageContainer {
@@ -327,9 +354,9 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
-    &:hover {
-      transform: scale(1.05);
-    }
+  }
+  .postCardImage:hover {
+    transform: scale(1.05);
   }
 
   .postCardContent {
@@ -362,7 +389,10 @@
     font-size: 14px;
     line-height: 17px;
     color: #c5c5c5;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .postCardDescription {
       font-style: normal;
       font-weight: 300;
       font-size: 14px;
@@ -376,7 +406,10 @@
     height: 1px;
     width: auto;
     margin: 24px -24px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .divider {
       margin: 20px -16px;
     }
   }
@@ -389,10 +422,9 @@
     color: #00ff99;
     text-decoration: none;
     transition: opacity 0.3s;
-
-    &:hover {
-      opacity: 0.7;
-    }
+  }
+  .createCardLink:hover {
+    opacity: 0.7;
   }
 
   .arrowIcon {

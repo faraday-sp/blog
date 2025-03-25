@@ -11,10 +11,13 @@
   }>()
 </script>
 
-<style lang="scss" module>
+<style module>
   .main {
     padding: 24px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .main {
       padding: 16px;
     }
   }

@@ -35,7 +35,7 @@
   })
 </script>
 
-<style lang="scss" module>
+<style module>
   .base {
     display: grid;
     grid-template-areas:
@@ -46,15 +46,19 @@
       'bottomNav bottomNav bottomNav';
     grid-template-columns: auto 1fr;
   }
+
   .header {
     grid-area: header;
   }
+
   .footer {
     grid-area: footer;
   }
+
   .bottomNav {
     grid-area: bottomNav;
   }
+
   .main {
     grid-area: main;
     display: flex;
@@ -63,7 +67,10 @@
     justify-content: space-between;
     width: 100%;
     justify-self: center;
-    @include mobile {
+  }
+
+  @media (max-width: 768px) {
+    .main {
       justify-content: flex-start;
       --bottomNavHeight: 1px;
       min-height: calc(100dvh - var(--headerHeightCollections) - var(--bottomNavHeight));

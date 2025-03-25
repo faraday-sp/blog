@@ -257,7 +257,7 @@
   })
 </script>
 
-<style lang="scss" module>
+<style module>
   .base {
     font-family: 'Montserrat', sans-serif;
     color: #fff;
@@ -270,7 +270,10 @@
     height: 1px;
     width: auto;
     margin: 24px -24px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .divider {
       margin: 20px -16px;
     }
   }
@@ -282,7 +285,10 @@
     position: relative;
     display: flex;
     justify-content: center;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .sliderContainer {
       margin: 0 -16px;
       padding: 0 16px;
     }
@@ -294,7 +300,10 @@
     object-fit: cover;
     border-radius: 25px;
     cursor: pointer;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .carouselImage {
       height: 153px;
       border-radius: 12px;
     }
@@ -303,7 +312,10 @@
   .slider {
     --base-slider-overflow: visible;
     max-width: 1500px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .slider {
       max-width: 300px;
     }
   }
@@ -315,8 +327,10 @@
     border-radius: 25px;
     position: relative;
     overflow: hidden;
+  }
 
-    @include mobile {
+  @media (max-width: 640px) {
+    .banner {
       gap: 8px;
       border-radius: 12px;
       min-width: 280px;
@@ -342,28 +356,29 @@
     cursor: pointer;
     z-index: 2;
     --base-icon-size: 12px;
-    &:hover {
-      background: rgba(218, 218, 218, 0.25);
-      color: #fff;
-    }
-    @include mobile {
+  }
+  .arrow:hover {
+    background: rgba(218, 218, 218, 0.25);
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .arrow {
       display: none;
     }
   }
 
+  .arrowRight span,
+  .arrowLeft span {
+    width: 30px;
+    height: 30px;
+  }
+
   .arrowRight {
-    span {
-      width: 30px;
-      height: 30px;
-    }
     right: 150px;
     transform: translateX(50%) translateY(-50%);
   }
   .arrowLeft {
-    span {
-      width: 30px;
-      height: 30px;
-    }
     left: 150px;
     transform: translateX(-50%) translateY(-50%);
   }
@@ -380,7 +395,10 @@
     font-size: 40px;
     line-height: 49px;
     color: #ffffff;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .heroTitle {
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -397,7 +415,10 @@
     max-width: 54rem;
     margin: 16px auto 0;
     color: #c5c5c5;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .heroDescription {
       font-style: normal;
       font-weight: 300;
       font-size: 14px;
@@ -413,11 +434,16 @@
     justify-content: center;
     gap: 60px;
     margin: 60px 0 60px;
+  }
 
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
+    .heroLinks {
       flex-direction: row;
     }
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .heroLinks {
       gap: 12px;
       margin: 40px 0 40px;
     }
@@ -430,19 +456,21 @@
     padding: 1rem 1.5rem;
     transition: background-color 0.3s;
     width: 299px;
+  }
+  .heroLink:hover {
+    background-color: #232323;
+  }
 
-    &:hover {
-      background-color: #232323;
-    }
-    @include mobile {
+  @media (max-width: 640px) {
+    .heroLink {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      img {
-        height: 30px;
-      }
       padding: 12px;
+    }
+    .heroLink img {
+      height: 30px;
     }
   }
 
@@ -451,7 +479,10 @@
     grid-template-columns: repeat(auto-fill, minmax(417px, 1fr));
     gap: 24px;
     grid-auto-rows: min-content;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .postsGrid {
       grid-template-columns: repeat(auto-fill, minmax(343px, 1fr));
     }
   }
@@ -472,10 +503,9 @@
     transition: box-shadow 0.3s;
     display: block;
     text-align: left;
-
-    &:hover {
-      opacity: 0.8;
-    }
+  }
+  .postCard:hover {
+    opacity: 0.8;
   }
 
   .postCardImageContainer {
@@ -492,10 +522,9 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
-
-    &:hover {
-      transform: scale(1.05);
-    }
+  }
+  .postCardImage:hover {
+    transform: scale(1.05);
   }
 
   .postCardContent {
@@ -526,7 +555,10 @@
     font-size: 14px;
     line-height: 17px;
     color: #c5c5c5;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .postCardDescription {
       font-style: normal;
       font-weight: 300;
       font-size: 14px;
@@ -542,10 +574,9 @@
     color: #00ff99;
     text-decoration: none;
     transition: opacity 0.3s;
-
-    &:hover {
-      opacity: 0.7;
-    }
+  }
+  .createCardLink:hover {
+    opacity: 0.7;
   }
 
   .arrowIcon {
@@ -558,10 +589,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    img {
-      width: 60px;
-      height: 60px;
-    }
+  }
+  .loading img {
+    width: 60px;
+    height: 60px;
   }
 
   .errorBase {
@@ -579,12 +610,16 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .errorBase {
       width: 375px;
       background-position: 50% 30%;
       background-size: 95%;
     }
   }
+
   .errorBaseTitle {
     font-style: normal;
     font-weight: 700;
@@ -592,7 +627,10 @@
     line-height: 160%;
     color: #ffffff;
     margin-bottom: 24px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .errorBaseTitle {
       font-style: normal;
       font-weight: 700;
       font-size: 24px;
@@ -600,6 +638,7 @@
       margin-bottom: 2px;
     }
   }
+
   .errorBaseDesription {
     font-style: normal;
     font-weight: 600;
@@ -609,7 +648,10 @@
     color: #cfcfcf;
     margin-bottom: 24px;
     max-width: 358px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .errorBaseDesription {
       font-style: normal;
       font-weight: 500;
       font-size: 14px;
@@ -619,12 +661,16 @@
       max-width: 316px;
     }
   }
+
   .errorBaseButton {
     text-transform: uppercase;
     display: flex;
     justify-content: center;
     width: 358px;
-    @include mobile {
+  }
+
+  @media (max-width: 640px) {
+    .errorBaseButton {
       width: 330px;
     }
   }

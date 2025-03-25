@@ -15,12 +15,8 @@
         :modelValue="search"
         placeholder="Search Comics, Tags, Autors..."
         class="w-full"
-        :ui="{
-          trailingIcon: 'rounded-full',
-        }"
         color="neutral"
         variant="outline"
-        size="md"
         leadingIcon="i-solar-rounded-magnifer-outline"
         @input="onInput"
       />
@@ -68,81 +64,22 @@
   }
 </script>
 
-<style lang="scss" module>
+<style module>
   .base {
     width: 100%;
     max-width: 464px;
   }
 
-  .header {
-    background-color: #171717;
-    border-bottom: 1px solid #2b2b2b;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include mobile {
-      padding: 16px;
-    }
-  }
-
-  .logoContainer {
-    display: flex;
-    align-items: center;
-  }
-
-  .logoLink {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .searchContainer {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    @include mobile {
-      display: none;
-    }
-  }
-
-  .clearSearchButton {
-    position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #fff;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-
-    &:hover {
-      color: #00ff99;
-    }
-  }
-
   .searchContainer input {
     border-radius: 20px;
     height: 36px;
-    //--tw-ring-color: #2B2B2B !important;
-    //background-color: #171717 !important;
-    //&:hover {
-    //  background-color: #232323 !important;
-    //}
   }
 
   .aboutButton {
-    //--tw-ring-color: #2B2B2B !important;
     width: 98px;
     height: 36px;
     text-align: center;
     justify-content: center;
-    //background-color: #171717 !important;
-    //&:hover {
-    //  background-color: #232323 !important;
-    //}
+    border: 1px solid #2b2b2b;
   }
 </style>
