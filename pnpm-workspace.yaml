@@ -1,5 +1,0 @@
-packages:
-  - 'packages/*'
-  - 'apps/*'
-  - 'eslint-config'
-  - 'prettier-config'
