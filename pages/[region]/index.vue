@@ -241,7 +241,6 @@
 
   onMounted(() => {
     const countryCode = route.params.region
-
     if (countryCode) {
       const regionFound = getRegionByCountry(countryCode.toString())
       if (regionFound) {
@@ -253,7 +252,6 @@
     } else {
       isNotFound.value = true
     }
-
     pending.value = false
   })
 </script>

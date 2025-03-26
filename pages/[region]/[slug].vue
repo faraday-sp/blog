@@ -44,14 +44,12 @@
         :class="$style.postImage"
       />
     </div>
-
     <div
       v-if="post"
       :class="$style.postContent"
     >
       <ContentRenderer :value="post" />
     </div>
-
     <div :class="$style.bottomLogos">
       <a
         href="#"
@@ -72,9 +70,7 @@
         />
       </a>
     </div>
-
     <div :class="$style.divider" />
-
     <div :class="$style.sliderSection">
       <NuxtLink
         v-for="item in filteredItems"
