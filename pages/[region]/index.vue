@@ -54,7 +54,7 @@
         >
           <template #slide="{ slide: banner }">
             <img
-              :src="banner.meta?.thumbnail"
+              :src="banner.meta?.thumbnail as string"
               :alt="banner.title"
               draggable="false"
               :class="$style.carouselImage"
@@ -171,11 +171,12 @@
   interface PostItem {
     date?: string
     description?: string
-    meta?: string
+    meta?: {
+      thumbnail?: string
+    }
     path: string
     slug?: string
     tags?: string[]
-    thumbnail?: string
     title: string
   }
 
@@ -342,7 +343,6 @@
     backdrop-filter: blur(2px);
     color: #fff;
     border-radius: 50px;
-    border: 1px solid var(--surface-3);
     position: absolute;
     top: 50%;
     width: 50px;

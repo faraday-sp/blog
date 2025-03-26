@@ -79,13 +79,13 @@
       <NuxtLink
         v-for="item in filteredItems"
         :key="item.path"
-        :to="`/${region}/${item.meta.slug}`"
+        :to="`/${region}/${item.meta?.slug}`"
         :class="$style.postCard"
       >
         <div :class="$style.postCardImageContainer">
           <img
-            v-if="item.meta.thumbnail"
-            :src="item.meta.thumbnail.toString()"
+            v-if="item.meta?.thumbnail"
+            :src="item.meta?.thumbnail.toString()"
             :alt="item.title"
             :class="$style.postCardImage"
           />
@@ -114,34 +114,41 @@
   const route = useRoute()
   const { region, slug } = route.params
 
-  const path = computed(() => withLeadingSlash(joinURL(region, slug)))
+  interface CollectionItem {
+    description?: string
+    meta?: {
+      slug?: string
+      thumbnail?: string
+    }
+    path: string
+    title: string
+  }
+
+  const path = computed(() => withLeadingSlash(joinURL(region as string, slug as string)))
   const collection = computed(() => route.params?.region?.toString() as keyof Collections)
 
   const { data: post } = await useAsyncData(
     path.value,
-    async () => (await queryCollection(collection.value).path(path.value).first()) as Collections['rus'],
+    async () => (await queryCollection(collection.value).path(path.value).first()) as CollectionItem,
   )
+
+  const { data: relatedPosts } = await useAsyncData(async () => await queryCollection(collection.value).all())
 
   if (!post.value) {
     throw createError({ statusCode: 404, statusMessage: 'Статья не найдена' })
   }
 
-  const { data: relatedPosts } = await useAsyncData(
-    `related-posts-${region}`,
-    async () => await queryCollection(route.params?.region?.toString() as keyof Collections).all(),
-  )
-
   const filteredItems = computed(() => getFilteredItems(relatedPosts.value || []))
 
-  function getFilteredItems(items: Collections['rus'][]): void {
-    const uniqueItems = new Map()
+  function getFilteredItems(items: CollectionItem[]): CollectionItem[] {
+    const uniqueItems = new Map<string, CollectionItem>()
     items.forEach((item) => {
       if (item.meta?.slug) {
         uniqueItems.set(item.meta.slug, item)
       }
     })
 
-    return Array.from(uniqueItems.values()).filter((item) => item.meta.slug !== slug)
+    return Array.from(uniqueItems.values()).filter((item) => item.meta?.slug !== slug)
   }
 </script>
 
@@ -321,10 +328,10 @@
     text-align: center;
   }
 
-  .sliderTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+  @media (max-width: 640px) {
+    .sliderSection {
+      flex-direction: column;
+    }
   }
 
   .postCard {

@@ -43,7 +43,8 @@ export default defineAppConfig({
       ],
       compoundVariants: [
         {
-          class: 'focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--ui-border-inverted) bg-(--ui-bg-button-neutral)',
+          class:
+            'focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-(--ui-border-inverted) bg-(--ui-bg-button-neutral)',
           color: 'neutral',
           variant: 'outline',
         },
